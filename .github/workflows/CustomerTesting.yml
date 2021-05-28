@@ -2,7 +2,7 @@ name: Generate test coverage xml report.
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   test-coverage:
     runs-on: ubuntu-latest
