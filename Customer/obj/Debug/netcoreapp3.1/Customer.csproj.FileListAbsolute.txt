@@ -1,0 +1,13 @@
+D:\1. WORK\ANKO\Customer\Customer\obj\Debug\netcoreapp3.1\Customer.csproj.AssemblyReference.cache
+D:\1. WORK\ANKO\Customer\Customer\obj\Debug\netcoreapp3.1\Customer.AssemblyInfoInputs.cache
+D:\1. WORK\ANKO\Customer\Customer\obj\Debug\netcoreapp3.1\Customer.AssemblyInfo.cs
+D:\1. WORK\ANKO\Customer\Customer\obj\Debug\netcoreapp3.1\Customer.csproj.CoreCompileInputs.cache
+D:\1. WORK\ANKO\Customer\Customer\bin\Debug\netcoreapp3.1\Customer.exe
+D:\1. WORK\ANKO\Customer\Customer\bin\Debug\netcoreapp3.1\Customer.deps.json
+D:\1. WORK\ANKO\Customer\Customer\bin\Debug\netcoreapp3.1\Customer.runtimeconfig.json
+D:\1. WORK\ANKO\Customer\Customer\bin\Debug\netcoreapp3.1\Customer.runtimeconfig.dev.json
+D:\1. WORK\ANKO\Customer\Customer\bin\Debug\netcoreapp3.1\Customer.dll
+D:\1. WORK\ANKO\Customer\Customer\bin\Debug\netcoreapp3.1\Customer.pdb
+D:\1. WORK\ANKO\Customer\Customer\obj\Debug\netcoreapp3.1\Customer.dll
+D:\1. WORK\ANKO\Customer\Customer\obj\Debug\netcoreapp3.1\Customer.pdb
+D:\1. WORK\ANKO\Customer\Customer\obj\Debug\netcoreapp3.1\Customer.genruntimeconfig.cache
