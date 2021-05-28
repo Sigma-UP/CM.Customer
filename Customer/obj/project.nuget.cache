@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6CThd++FXzPvBnL5g0OOfUBRMs2pIxrSegpvHP9ZNmav1UUmpG8YGhFIb2ZVmMTnDCMn+elrE9lPhAhSvaAMZg==",
+  "dgSpecHash": "5bcigdrhd2RkDz9ZAknNcm5lBq1YUYYKZCVjChmI1vsXwEpMwzEvROpBXjyz+85D1cReh4toze4yfouorOjrDA==",
   "success": true,
-  "projectFilePath": "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.csproj",
+  "projectFilePath": "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.Main.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

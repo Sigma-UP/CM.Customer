@@ -28,8 +28,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.csproj": {
-                "projectPath": "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.csproj"
+              "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.Main.csproj": {
+                "projectPath": "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.Main.csproj"
               }
             }
           }
@@ -84,12 +84,12 @@
         }
       }
     },
-    "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.csproj": {
+    "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.Main.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.csproj",
-        "projectName": "Customer",
-        "projectPath": "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.csproj",
+        "projectUniqueName": "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.Main.csproj",
+        "projectName": "Customer.Main",
+        "projectPath": "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.Main.csproj",
         "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
         "outputPath": "D:\\1. WORK\\ANKO\\Customer\\Customer\\obj\\",
         "projectStyle": "PackageReference",

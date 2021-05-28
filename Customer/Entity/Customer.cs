@@ -24,22 +24,18 @@ namespace Customer.Entity
 		}
         public Customer()
         {
-			//FirstName = "";
-			//LastName =	"h";
 			Addresses.Add(new Address());
-			Notes.Add(new string("empty")) ;
-			//Phone =		"";
-			//Email =		"";
-			//Notes =		null;
-			//TotalPurchasesAmount = "";
+			Notes.Add("");
 		}
+
 		string _name;
 		string _lastName;
-		List<Address> _addresses;
 		string _phone;
 		string _email;
-		List<string> _notes;
 		object _total;
+
+		List<Address> _addresses = new List<Address>();
+		List<string> _notes = new List<string>();
 		public override string FirstName 
 		{ 
 			get { return _name; }
@@ -62,7 +58,7 @@ namespace Customer.Entity
 		{ 
 			get => _addresses; 
 			set => _addresses = value; 
-		}//r, >=1 item
+		}
 		public string Phone { 
 			get => _phone; set => _phone = value; 
 		} // o, E.164
@@ -87,16 +83,16 @@ namespace Customer.Entity
 					}
 				}
 			}
-		} //o, Regex
+		}
 		public List<string> Notes 
 		{ 
 			get => _notes; 
 			set => _notes = value; 
-		} //r, >=1 item
+		} 
 		public object TotalPurchasesAmount {
 			get
 			{
-				return (decimal?)_total;
+				return (decimal?)(double?)_total;
 			}
 			set 
 			{

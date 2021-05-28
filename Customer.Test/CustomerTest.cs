@@ -1,15 +1,16 @@
 using System;
 using Xunit;
 using System.Collections.Generic;
-
 namespace Customer.Test
 {
-    public class UnitTest1
+    public class CustomerTest
     {
+
+        Customer.Entity.Customer c = new Customer.Entity.Customer();
+        
         [Fact]
         public void FirstNameValid()
         {
-            Customer c = new Customer();
             Assert.Null(c.FirstName);
 
             c.FirstName = "Stewie";
@@ -25,7 +26,7 @@ namespace Customer.Test
         [Fact]
         public void LastNameValid()
         {
-            Customer c = new Customer();
+            //Customer.Entity.Customer c = new Customer.Entity.Customer();
             Assert.Null(c.LastName);
 
             c.LastName = "Griffin";
@@ -38,26 +39,14 @@ namespace Customer.Test
             Assert.Equal(new string('A', 50), c.LastName);
         }
 
-        //[Fact]
-        //public void 
-
-        //[Fact]
-        //public void TotalPurchasesAmountShouldSaveNullAndDecimal()
-        //{
-        //    Customer c = new Customer() ;
-        //    c.TotalPurchasesAmount = 1.2;
-        //    Assert.Equal((decimal)1.2, c.TotalPurchasesAmount);
-        //    c.TotalPurchasesAmount = null;
-        //    Assert.Null(c.TotalPurchasesAmount);
-        //}
-
-        //public void ConstructorsWork()
-        //{
-        //    Customer c1 = new Customer();
-        //    Customer c_expected = new Customer(null, null, null, null, null, null, //null);
-        //    Assert.Equal(c_expected, c1);
-        //
-        //    Customer c2 = new Customer("August")
-        //}
+        [Fact]
+        public void TotalPurchasesAmountShouldSaveNullAndDecimal()
+        {
+            //Customer.Entity.Customer c = new Customer.Entity.Customer() ;
+            c.TotalPurchasesAmount = null;
+            Assert.Null(c.TotalPurchasesAmount);
+            c.TotalPurchasesAmount = 1.2;
+            Assert.Equal((decimal)1.2 ,c.TotalPurchasesAmount);
+        }
     }
 }

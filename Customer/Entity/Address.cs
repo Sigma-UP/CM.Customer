@@ -10,15 +10,13 @@ namespace Customer.Entity
 	{
 		private string _line1;
 		private string _line2;
+		private EAddressType _addressType;
 		private string _city;
 		private string _postalCode;
 		private string _state;
 		private string _country;
 
-		public Address()
-		{
-
-		}
+		public Address(){}
 
 
 		public Address(string line1, int addressType, string city, string postalCode, string state, string country, string line2 = null)
@@ -36,16 +34,16 @@ namespace Customer.Entity
 		public string Line2 { get => _line2; set => _line2 = value; }
 		public EAddressType AddressType
 		{
-			get => AddressType;
+			get => _addressType;
 			set
 			{
-				switch (value)
+				switch ((int)value)
 				{
-					case EAddressType.Shipping:
-						AddressType = EAddressType.Shipping;
+					case 0:
+						_addressType = EAddressType.Shipping;
 						break;
-					case EAddressType.Biling:
-						AddressType = EAddressType.Biling;
+					case 1:
+						_addressType = EAddressType.Biling;
 						break;
 					default:
 						AddressType = EAddressType.Shipping;
