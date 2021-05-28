@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage line-rate="0.19576719576719576" branch-rate="0.10810810810810811" lines-covered="37" lines-valid="189" branches-covered="8" branches-valid="74" complexity="99" version="0" timestamp="1622207593">
+<coverage line-rate="0.20218579234972678" branch-rate="0.10810810810810811" lines-covered="37" lines-valid="183" branches-covered="8" branches-valid="74" complexity="99" version="0" timestamp="1622210611">
   <sources>
     <source>D:\1. WORK\ANKO\Customer\</source>
     <source>C:\</source>
   </sources>
   <packages>
-    <package name="Customer" line-rate="0.07926829268292683" branch-rate="0.10810810810810811" complexity="96">
+    <package name="Customer" line-rate="0.08227848101265822" branch-rate="0.10810810810810811" complexity="96">
       <classes>
         <class name="Customer.Address" filename="D:\1. WORK\ANKO\Customer\Customer\Customer.cs" line-rate="0" branch-rate="0" complexity="43">
           <methods>
@@ -96,12 +96,6 @@
             </method>
             <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="21" hits="0" branch="false" />
-                <line number="22" hits="0" branch="false" />
-                <line number="23" hits="0" branch="false" />
-                <line number="24" hits="0" branch="false" />
-                <line number="25" hits="0" branch="false" />
-                <line number="26" hits="0" branch="false" />
                 <line number="28" hits="0" branch="false" />
                 <line number="29" hits="0" branch="false" />
                 <line number="30" hits="0" branch="false" />
@@ -123,12 +117,6 @@
             </method>
           </methods>
           <lines>
-            <line number="21" hits="0" branch="false" />
-            <line number="22" hits="0" branch="false" />
-            <line number="23" hits="0" branch="false" />
-            <line number="24" hits="0" branch="false" />
-            <line number="25" hits="0" branch="false" />
-            <line number="26" hits="0" branch="false" />
             <line number="28" hits="0" branch="false" />
             <line number="29" hits="0" branch="false" />
             <line number="30" hits="0" branch="false" />

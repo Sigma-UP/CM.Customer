@@ -39,6 +39,9 @@ namespace Customer.Test
         }
 
         //[Fact]
+        //public void 
+
+        //[Fact]
         //public void TotalPurchasesAmountShouldSaveNullAndDecimal()
         //{
         //    Customer c = new Customer() ;

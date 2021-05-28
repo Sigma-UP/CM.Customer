@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.1957" branch-rate="0.1081" version="1.9" timestamp="1622196793" lines-covered="37" lines-valid="189" branches-covered="8" branches-valid="74">
+<coverage line-rate="0.2021" branch-rate="0.1081" version="1.9" timestamp="1622199810" lines-covered="37" lines-valid="183" branches-covered="8" branches-valid="74">
   <sources>
     <source>D:\1. WORK\ANKO\Customer\</source>
     <source>C:\</source>
   </sources>
   <packages>
-    <package name="Customer" line-rate="0.07919999999999999" branch-rate="0.1081" complexity="96">
+    <package name="Customer" line-rate="0.08220000000000001" branch-rate="0.1081" complexity="96">
       <classes>
         <class name="StringExtension.StringExtension" filename="Customer\StringExtension.cs" line-rate="0" branch-rate="0" complexity="13">
           <methods>
@@ -273,12 +273,6 @@
             </method>
             <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="21" hits="0" branch="False" />
-                <line number="22" hits="0" branch="False" />
-                <line number="23" hits="0" branch="False" />
-                <line number="24" hits="0" branch="False" />
-                <line number="25" hits="0" branch="False" />
-                <line number="26" hits="0" branch="False" />
                 <line number="28" hits="0" branch="False" />
                 <line number="29" hits="0" branch="False" />
                 <line number="30" hits="0" branch="False" />
@@ -410,12 +404,6 @@
             <line number="102" hits="0" branch="False" />
             <line number="105" hits="0" branch="False" />
             <line number="106" hits="0" branch="False" />
-            <line number="21" hits="0" branch="False" />
-            <line number="22" hits="0" branch="False" />
-            <line number="23" hits="0" branch="False" />
-            <line number="24" hits="0" branch="False" />
-            <line number="25" hits="0" branch="False" />
-            <line number="26" hits="0" branch="False" />
             <line number="28" hits="0" branch="False" />
             <line number="29" hits="0" branch="False" />
             <line number="30" hits="0" branch="False" />
