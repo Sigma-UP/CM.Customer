@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Customer.Entity
+namespace CustomerLib
 {
 	public abstract class Person
 	{

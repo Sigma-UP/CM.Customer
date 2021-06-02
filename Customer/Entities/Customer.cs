@@ -8,10 +8,20 @@ using System.Text.RegularExpressions;
 /// *o [size] - optional field
 /// </summary>
 
-namespace Customer.Entity
+namespace CustomerLib
 {
 	public class Customer : Person
 	{
+		string _name;
+		string _lastName;
+		string _phone;
+		string _email;
+		object _total;
+
+		List<Address> _addresses = new List<Address>();
+		List<string> _notes = new List<string>();
+
+        #region Constructors.
         public Customer(string firstName, string lastName, List<Address> addresses, string phone, string email, List<string> notes, object totalPurchasesAmount)
         {
 			FirstName = firstName;
@@ -27,22 +37,17 @@ namespace Customer.Entity
 			Addresses.Add(new Address());
 			Notes.Add("");
 		}
-
-		string _name;
-		string _lastName;
-		string _phone;
-		string _email;
-		object _total;
-
-		List<Address> _addresses = new List<Address>();
-		List<string> _notes = new List<string>();
-		public override string FirstName 
+		#endregion
+        #region Getters and setters.
+        public override string FirstName 
 		{ 
 			get { return _name; }
 			set 
 			{
-				if (value!=null && value.Length <= 50)
-					 _name = value;
+				if (value != null && value.Length <= 50 && !value.containsNumbers() && !value.isEmpty())
+					_name = value;
+				else
+					_name = null;
 			} 
 		}
 		public override string LastName 
@@ -50,18 +55,22 @@ namespace Customer.Entity
 			get { return _lastName; } 
 			set 
 			{
-				if (value != null && value.Length <= 50)
+				if (value != null && value.Length <= 50 && !value.containsNumbers() && !value.isEmpty())
 					_lastName = value;
+				else
+					_lastName = null;
 			} 
 		}
-		public List<Address> Addresses 
-		{ 
-			get => _addresses; 
-			set => _addresses = value; 
-		}
 		public string Phone { 
-			get => _phone; set => _phone = value; 
-		} // o, E.164
+			get => _phone;
+			set 
+			{
+				if (value.isE164())
+					_phone = value;
+				else
+					_phone = null;
+			}
+		}
 		public string Email {
 			get => _email;
 			set
@@ -73,22 +82,17 @@ namespace Customer.Entity
 
 					if (Regex.IsMatch(value, pattern, RegexOptions.IgnoreCase))
 					{
-						Console.WriteLine("Email accepted.");
 						_email = value;
 					}
 					else
 					{
-						Console.WriteLine("Email denied.");
 						_email = null;
 					}
 				}
+				else
+					_email = null;
 			}
 		}
-		public List<string> Notes 
-		{ 
-			get => _notes; 
-			set => _notes = value; 
-		} 
 		public object TotalPurchasesAmount {
 			get
 			{
@@ -96,31 +100,41 @@ namespace Customer.Entity
 			}
 			set 
 			{
-				if (!(value == null))
+				if (value != null && (decimal?)(double?)value >= 0)
 					_total = value;
 				else
 					_total = null;
 			} 
 		}
-
-		public List<string> CustomerValidator()
+		public List<Address> Addresses 
+		{ 
+			get => _addresses;
+			set {
+			_addresses = value; 
+			} 
+		}
+		public List<string> Notes 
+		{ 
+			get => _notes;
+			set 
+			{
+				_notes = value;
+			} 
+		} 
+        #endregion
+        public List<string> CustomerValidator()
 		{
-			//(a1.SequenceEqual(a2))
-			List<string> errors = null;
-			if (LastName == null)
-				errors.Add(CustomerErrors.LastNameIsNull.ToString());
-			else if (LastName.isEmpty())
-				errors.Add(CustomerErrors.LastNameIsEmpty.ToString());
-			else if (!LastName.isLetter())
-				errors.Add(CustomerErrors.LastNameContainNum.ToString());
+			List<string> errors = new List<string>();
 
+			if (LastName is null)
+				errors.Add("LastName");
+			
 			if (Addresses.Count == 0)
-				errors.Add(CustomerErrors.AddressesListIsEmpty.ToString());
+				errors.Add("Addresses");
 			else 
 				for(int i = 0; i < Addresses.Count; i++)
 					if (Addresses[i].AddressValidator() != null)
-						errors.Add(CustomerErrors.AddressInvalid + $"-{i}");
-				
+						errors.Add($"Address_{i}");
 
 			if(Notes.Count == 0)
 				errors.Add(CustomerErrors.AddressesListIsEmpty.ToString());
