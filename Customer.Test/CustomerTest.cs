@@ -147,7 +147,8 @@ namespace CustomerLib.Test
         public void NewAddressShouldSaveCorrectData()
         {
             Address address = new Address("B.Herrington str.", 1, "Zhma", "121782", "Juna", "United States");
-            c.Addresses[0] = address;
+            c.Addresses = new List<Address>();
+            c.Addresses.Add(address);
             Assert.Equal("B.Herrington str.", c.Addresses[0].Line1);
             Assert.Equal("Zhma", c.Addresses[0].City);
 
