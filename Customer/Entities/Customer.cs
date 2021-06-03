@@ -22,20 +22,20 @@ namespace CustomerLib
 		List<string> _notes = new List<string>();
 
         #region Constructors.
-        public Customer(string firstName, string lastName, List<Address> addresses, string phone, string email, List<string> notes, object totalPurchasesAmount)
-        {
-			FirstName = firstName;
-			LastName = lastName;
-			Addresses = addresses;
-			Phone = phone;
-			Email = email;
-			Notes = notes;
-			TotalPurchasesAmount = totalPurchasesAmount;
-		}
+        //public Customer(string firstName, string lastName, List<Address> /addresses,/ string phone, string email, List<string> notes, object //totalPurchasesAmount)
+        //{
+		//	FirstName = firstName;
+		//	LastName = lastName;
+		//	Addresses = addresses;
+		//	Phone = phone;
+		//	Email = email;
+		//	Notes = notes;
+		//	TotalPurchasesAmount = totalPurchasesAmount;
+		//}
         public Customer()
         {
-			Addresses.Add(new Address());
-			Notes.Add("");
+			//Addresses.Add(new Address());
+			//Notes.Add("");
 		}
 		#endregion
         #region Getters and setters.
@@ -106,13 +106,21 @@ namespace CustomerLib
 					_total = null;
 			} 
 		}
+		//public Address GetAddress(int i)
+        //{
+		//	return _addresses[i];
+        //}
+		//public void SetAddress(int i, Address value)
+        //{
+		//	_addresses[i] = value;
+        //}
+
 		public List<Address> Addresses 
 		{ 
 			get => _addresses;
-			set {
-			_addresses = value; 
-			} 
+			set => _addresses = value;
 		}
+
 		public List<string> Notes 
 		{ 
 			get => _notes;
@@ -126,19 +134,25 @@ namespace CustomerLib
 		{
 			List<string> errors = new List<string>();
 
-			if (LastName is null)
+			if (LastName == null)
 				errors.Add("LastName");
 			
-			if (Addresses.Count == 0)
+			if (Addresses == null || Addresses.Count == 0)
 				errors.Add("Addresses");
 			else 
 				for(int i = 0; i < Addresses.Count; i++)
 					if (Addresses[i].AddressValidator() != null)
 						errors.Add($"Address_{i}");
 
-			if(Notes.Count == 0)
-				errors.Add(CustomerErrors.AddressesListIsEmpty.ToString());
-			
+			if(Notes == null || Notes.Count == 0)
+				errors.Add("Notes");
+			else
+				for (int i = 0; i < Notes.Count; i++)
+					if (Notes[i] == null || Notes[i].isEmpty())
+						errors.Add($"Note_{i}");
+
+			if (errors.Count == 0)
+				return null;
 			return errors;
 		}
 	}

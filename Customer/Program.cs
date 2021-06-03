@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace CustomerLib
+namespace Customer.Main
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
+
         }
     }
 }

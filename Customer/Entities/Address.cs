@@ -31,6 +31,7 @@ namespace CustomerLib
 			Country = country;
 		}
 
+
 		public string Line1 { 
 			get => _line1;
 			set 
@@ -123,7 +124,6 @@ namespace CustomerLib
 			List<string> errors = new List<string>();
 
 
-			//_ = Line1 ?? errors.Add("Line1");
 			if (Line1 == null)
 				errors.Add("Line1");
 
@@ -139,6 +139,8 @@ namespace CustomerLib
 			if (Country == null)
 				errors.Add("Country");
 			
+			if(errors.Count==0)
+				return null;
 			return errors;
 		}
 		public enum EAddressType
