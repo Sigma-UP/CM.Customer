@@ -1,7 +1,5 @@
 ﻿using StringExtension;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CustomerLib
 {
@@ -36,7 +34,7 @@ namespace CustomerLib
 			get => _line1;
 			set 
 			{
-				if (value != null && value.Length <= 100 && !value.isEmpty())
+				if (value != null && value.Length <= 100 && !value.IsEmpty())
 					_line1 = value;
 				else
 					_line1 = null;
@@ -46,7 +44,7 @@ namespace CustomerLib
 			get => _line2;
 			set
 			{
-				if (value != null && value.Length <= 100 && !value.isEmpty())
+				if (value != null && value.Length <= 100 && !value.IsEmpty())
 					_line2 = value;
 				else
 					_line2 = null;
@@ -76,7 +74,7 @@ namespace CustomerLib
 			get => _city;
 			set
 			{
-				if (value != null && value.Length <= 50 && !value.isEmpty() && !value.containsNumbers())
+				if (value != null && value.Length <= 50 && !value.IsEmpty() && !value.ContainsNumbers())
 					_city = value;
 				else
 					_city = null;
@@ -87,7 +85,7 @@ namespace CustomerLib
 			get => _postalCode;
 			set
 			{
-				if (value != null && value.Length <= 6 && value.containsNumbers())
+				if (value != null && value.Length <= 6 && value.ContainsNumbers())
 					_postalCode = value;
 				else
 					_postalCode = null;
@@ -98,7 +96,7 @@ namespace CustomerLib
 			get => _state;
 			set
 			{
-				if (value != null && value.Length <= 20 && !value.isEmpty() && !value.containsNumbers())
+				if (value != null && value.Length <= 20 && !value.IsEmpty() && !value.ContainsNumbers())
 					_state = value;
 				else
 					_state = null;
@@ -124,23 +122,13 @@ namespace CustomerLib
 			List<string> errors = new List<string>();
 
 
-			if (Line1 == null)
-				errors.Add("Line1");
-
-			if (City == null)
-				errors.Add("City");
-
-			if (PostalCode == null)
-				errors.Add("PostalCode");
+			if (Line1 == null)		errors.Add("Line1");
+			if (City == null)		errors.Add("City");
+			if (PostalCode == null) errors.Add("PostalCode");
+			if (State == null)		errors.Add("State");
+			if (Country == null)	errors.Add("Country");
 			
-			if (State == null)
-				errors.Add("State");
-			
-			if (Country == null)
-				errors.Add("Country");
-			
-			if(errors.Count==0)
-				return null;
+			if(errors.Count==0)	return null;
 			return errors;
 		}
 		public enum EAddressType
