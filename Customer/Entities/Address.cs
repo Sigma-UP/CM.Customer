@@ -116,6 +116,7 @@ namespace CustomerLib
 			}
 		}
 
+		/*
 		public List<string> AddressValidator()
 		{
 			//try something to use cycles
@@ -131,6 +132,7 @@ namespace CustomerLib
 			if(errors.Count==0)	return null;
 			return errors;
 		}
+		*/
 		public enum EAddressType
 		{
 			Shipping,

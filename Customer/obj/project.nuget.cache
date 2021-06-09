@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "5bcigdrhd2RkDz9ZAknNcm5lBq1YUYYKZCVjChmI1vsXwEpMwzEvROpBXjyz+85D1cReh4toze4yfouorOjrDA==",
+  "dgSpecHash": "OTixfoajunklT9FV0Ghoe7fHlHydCplSR4tIF7gBavAj4JcFe2nCjj/aC6inEf3GohZINBzxvpitEf866JTFBQ==",
   "success": true,
   "projectFilePath": "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.Main.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Acer\\.nuget\\packages\\fluentvalidation\\10.2.3\\fluentvalidation.10.2.3.nupkg.sha512"
+  ],
   "logs": []
 }

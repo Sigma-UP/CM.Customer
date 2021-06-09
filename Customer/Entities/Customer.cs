@@ -28,8 +28,6 @@ namespace CustomerLib
 		//}
         public Customer()
         {
-			//Addresses.Add(new Address());
-			//Notes.Add("");
 		}
 		#endregion
         #region Getters and setters.
@@ -87,27 +85,20 @@ namespace CustomerLib
 					_email = null;
 			}
 		}
-		public object TotalPurchasesAmount {
+		public object TotalPurchasesAmount
+		{
 			get
 			{
 				return (decimal?)(double?)_total;
 			}
-			set 
+			set
 			{
 				if (value != null && (decimal?)(double?)value >= 0)
 					_total = value;
 				else
 					_total = null;
-			} 
+			}
 		}
-		//public Address GetAddress(int i)
-        //{
-		//	return _addresses[i];
-        //}
-		//public void SetAddress(int i, Address value)
-        //{
-		//	_addresses[i] = value;
-        //}
 
 		public List<Address> Addresses 
 		{ 
@@ -124,6 +115,7 @@ namespace CustomerLib
 			} 
 		} 
         #endregion
+		/*
         public List<string> CustomerValidator()
 		{
 			List<string> errors = new List<string>();
@@ -149,5 +141,6 @@ namespace CustomerLib
 				return null;
 			return errors;
 		}
+		*/
 	}
 }

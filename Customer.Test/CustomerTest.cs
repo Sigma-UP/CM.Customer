@@ -1,6 +1,7 @@
 using Xunit;
 using System.Collections.Generic;
-
+using Customer.Main.Entities.Validators;
+using FluentValidation.TestHelper;
 
 namespace CustomerLib.Test
 {
@@ -8,7 +9,7 @@ namespace CustomerLib.Test
     {
 
         private Customer _c = new Customer();
-        
+
         [Fact]
         public void FirstNameShouldSaveNullOrCorrectString()
         {
@@ -63,10 +64,10 @@ namespace CustomerLib.Test
 
             _c.LastName = new string('A', 51);
             Assert.Null(_c.LastName);
-            
+
             _c.LastName = "Griffin";
             Assert.Equal("Griffin", _c.LastName);
-            
+
             _c.LastName = new string('A', 50);
             Assert.Equal(new string('A', 50), _c.LastName);
 
@@ -106,19 +107,19 @@ namespace CustomerLib.Test
 
             _c.Email = "invalidEmail";
             Assert.Null(_c.Email);
-            
+
             _c.Email = "sdwdeeesf@.com";
             Assert.Null(_c.Email);
-            
+
             _c.Email = "@gmail.com";
             Assert.Null(_c.Email);
-            
+
             _c.Email = "sdwdeeesf@gmail";
             Assert.Null(_c.Email);
-            
+
             _c.Email = "sdwdeeesf@@gmail";
             Assert.Null(_c.Email);
-            
+
             _c.Email = "mynametrump@gmail.com";
             Assert.Equal("mynametrump@gmail.com", _c.Email);
 
@@ -136,8 +137,8 @@ namespace CustomerLib.Test
             Assert.Equal((decimal)0.0, _c.TotalPurchasesAmount);
 
             _c.TotalPurchasesAmount = 1.2;
-            Assert.Equal((decimal)1.2 ,_c.TotalPurchasesAmount);
-        
+            Assert.Equal((decimal)1.2, _c.TotalPurchasesAmount);
+
             _c.TotalPurchasesAmount = null;
             Assert.Null(_c.TotalPurchasesAmount);
         }
@@ -154,12 +155,12 @@ namespace CustomerLib.Test
             _c.Addresses.Add(address);
             Assert.Null(_c.Addresses[1].Line1);
         }
-        
+
         [Fact]
         public void NotesShouldSaveCorrectStringOrNull()
         {
             List<string> notes = new List<string>();
-            
+
             notes.Add("Note1");
             notes.Add("Note2");
             Customer LocalNew = new Customer();
@@ -167,41 +168,41 @@ namespace CustomerLib.Test
             Assert.Equal(notes, LocalNew.Notes);
         }
 
-        [Fact]
-        public void CustomerValidatorShouldReturnCorrectListOfErrors()
-        {
-                List<string> err  = new List<string>();
-                Customer c2 = new Customer();
-
-            c2.Addresses.Add(new Address("11", 1, "City", "232322", "State", "United States", "Line2_optional"));
-            c2.Addresses.Add(new Address(null, 1, "City", "232322", "State", "United States", null));
-            c2.Addresses.Add(new Address("dfr", 1, "", "232322", "State", "United States", null));
-            c2.Notes = null;
-            err.Add("LastName");
-            err.Add("Address_1");
-            err.Add("Address_2");
-            err.Add("Notes");
-            Assert.Equal(err, c2.CustomerValidator());
-            
-            c2 = new Customer();
-            err = new List<string>();
-            c2.LastName = "LastName";
-            c2.Addresses = null;
-            c2.Notes.Add("Note0");
-            c2.Notes.Add("   ");
-            c2.Notes.Add(null);
-            err.Add("Addresses");
-            err.Add("Note_1");
-            err.Add("Note_2");
-            Assert.Equal(err, c2.CustomerValidator());
-
-            c2 = new Customer();
-            err = null;
-            c2.LastName = "LastName";
-            c2.Addresses.Add(new Address("11", 1, "City", "232322", "State", "United States", "Line2_optional"));
-            c2.Notes.Add("Note0");
-            Assert.Equal(err, c2.CustomerValidator());
-        }
+       //[Fact]
+       //public void CustomerValidatorShouldReturnCorrectListOfErrors()
+       //{
+       //        List<string> err  = new List<string>();
+       //        Customer c2 = new Customer();
+       //
+       //    c2.Addresses.Add(new Address("11", 1, "City", "232322", "State", "United States","Line2_optional"));
+       //    c2.Addresses.Add(new Address(null, 1, "City", "232322", "State", "United States", null));
+       //    c2.Addresses.Add(new Address("dfr", 1, "", "232322", "State", "United States", null));
+       //    c2.Notes = null;
+       //    err.Add("LastName");
+       //    err.Add("Address_1");
+       //    err.Add("Address_2");
+       //    err.Add("Notes");
+       //    Assert.Equal(err, c2.CustomerValidator());
+       //    
+       //    c2 = new Customer();
+       //    err = new List<string>();
+       //    c2.LastName = "LastName";
+       //    c2.Addresses = null;
+       //    c2.Notes.Add("Note0");
+       //    c2.Notes.Add("   ");
+       //    c2.Notes.Add(null);
+       //    err.Add("Addresses");
+       //    err.Add("Note_1");
+       //    err.Add("Note_2");
+       //    Assert.Equal(err, c2.CustomerValidator());
+       //
+       //    c2 = new Customer();
+       //    err = null;
+       //    c2.LastName = "LastName";
+       //    c2.Addresses.Add(new Address("11", 1, "City", "232322", "State", "United States","Line2_optional"));
+       //    c2.Notes.Add("Note0");
+       //    Assert.Equal(err, c2.CustomerValidator());
+       //}
     }
 
     public class AddressTest
@@ -213,7 +214,7 @@ namespace CustomerLib.Test
         {
             Assert.Null(_address.Line1);
             Assert.Null(_address.Line2);
-            
+
             _address.Line1 = "Gold Lion str., h.2";
             _address.Line2 = "Gold Lion str., h.4";
             Assert.Equal("Gold Lion str., h.2", _address.Line1);
@@ -233,7 +234,7 @@ namespace CustomerLib.Test
             Assert.Null(_address.Line2);
 
         }
-        
+
         [Fact]
         public void AddressTypeShouldSave0Or1()
         {
@@ -298,7 +299,7 @@ namespace CustomerLib.Test
 
             _address.PostalCode = "1231231";
             Assert.Null(_address.PostalCode);
-            
+
             _address.PostalCode = "123123";
             Assert.Equal("123123", _address.PostalCode);
 
@@ -325,7 +326,7 @@ namespace CustomerLib.Test
 
             _address.State = "Alabama";
             Assert.Equal("Alabama", _address.State);
-            
+
             _address.State = new string('A', 21);
             Assert.Null(_address.State);
 
@@ -360,36 +361,36 @@ namespace CustomerLib.Test
             Assert.Equal("Canada", _address.Country);
         }
 
-        [Fact]
-        public void AddressValidatorShouldReturnCorrectListOfErrors()
-        {
-            List<Address> addresses = new List<Address>();
-            addresses.Add(new Address("11", 1, "City", "232322", "State", "United States", "Line2_optional"));
-            addresses.Add(new Address(null, 1, "City", "232322", "State", "United States", null));
-            addresses.Add(new Address("11", 1, null, "232322", "State", "United States", "Line2_optional"));
-            addresses.Add(new Address("12", 2, "City", null, "State", "United States", null));
-            addresses.Add(new Address("12", 2, "City", "232322", null, "United States", null));
-            addresses.Add(new Address("12", 2, "City", "232322", "State", null, null));
-
-            List<string> errors1 = null;
-            Assert.Equal(errors1, addresses[0].AddressValidator());
-
-            errors1 = new List<string>(); 
-            errors1.Add("Line1");
-            Assert.Equal(errors1, addresses[1].AddressValidator());
-
-            errors1[0] = "City";
-            Assert.Equal(errors1, addresses[2].AddressValidator());
-
-            errors1[0] = "PostalCode";
-            Assert.Equal(errors1, addresses[3].AddressValidator());
-
-            errors1[0] = "State";
-            Assert.Equal(errors1, addresses[4].AddressValidator());
-
-            errors1[0] = "Country";
-            Assert.Equal(errors1, addresses[5].AddressValidator());
-        }
+        //[Fact]
+        //public void AddressValidatorShouldReturnCorrectListOfErrors()
+        //{
+        //    List<Address> addresses = new List<Address>();
+        //    addresses.Add(new Address("11", 1, "City", "232322", "State", "United States", /"Line2_optional"));
+        //    addresses.Add(new Address(null, 1, "City", "232322", "State", "United States", null));
+        //    addresses.Add(new Address("11", 1, null, "232322", "State", "United States", "Line2_optional"));
+        //    addresses.Add(new Address("12", 2, "City", null, "State", "United States", null));
+        //    addresses.Add(new Address("12", 2, "City", "232322", null, "United States", null));
+        //    addresses.Add(new Address("12", 2, "City", "232322", "State", null, null));
+        //
+        //    List<string> errors1 = null;
+        //    Assert.Equal(errors1, addresses[0].AddressValidator());
+        //
+        //    errors1 = new List<string>(); 
+        //    errors1.Add("Line1");
+        //    Assert.Equal(errors1, addresses[1].AddressValidator());
+        //
+        //    errors1[0] = "City";
+        //    Assert.Equal(errors1, addresses[2].AddressValidator());
+        //
+        //    errors1[0] = "PostalCode";
+        //    Assert.Equal(errors1, addresses[3].AddressValidator());
+        //
+        //    errors1[0] = "State";
+        //    Assert.Equal(errors1, addresses[4].AddressValidator());
+        //
+        //    errors1[0] = "Country";
+        //    Assert.Equal(errors1, addresses[5].AddressValidator());
+        //}
 
         [Fact]
         public void AddressConstructorShouldSaveCorrectly()
@@ -403,4 +404,47 @@ namespace CustomerLib.Test
             Assert.Equal("Canada", a.Country);
         }
     }
+
+    public class FluentValidatorsTest
+    {
+        [Fact]
+        public void CustomerValidatorShouldReturn()
+        {
+            Address address1 = new Address()
+            {
+                Line1 = "Spec Line",
+                AddressType = (Address.EAddressType)1,
+                City = "Kirkland",
+                PostalCode = "282828",
+                State = "MP",
+                Country = "Canada"
+            };
+            Address address2 = new Address()
+            {
+                Line1 = "Spec Line v2",
+                AddressType = 0,
+                City = "Kirkland Vein",
+                PostalCode = "282828",
+                State = "MP Vein",
+                Country = "United States" //incorrect value
+            };
+
+            Customer customer = new Customer()
+            {
+                FirstName = "Vlad",
+                LastName = "Gray",
+                Addresses = new List<Address>() { address1, address2 },
+                Notes = new List<string>() { new string('a', 20) },
+                Phone = "+343434",
+                Email = "rpvv@ankocorp.com",
+                TotalPurchasesAmount = (double?)0.456
+            };
+            
+            CustomerValidator validator = new CustomerValidator();
+
+            var result = validator.TestValidate(customer);
+            result.ShouldNotHaveAnyValidationErrors();
+        }
+    }
 }
+
