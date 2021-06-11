@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-namespace Customer.Main.Entities.Validators
+namespace CustomerLib.Entities.Validators
 {
     public class CustomerValidator : AbstractValidator<CustomerLib.Customer>
     {

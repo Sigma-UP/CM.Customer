@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4MkBe56+nE3p8cs6UPPrtcTu7pytFwea6Gk79z4TObPECKVyXQA4RYBQ4r8jJarh734Jp5B0g6xp+paN6KUf/w==",
+  "dgSpecHash": "GSqtPUZFmxt97TSGr30QzoRi2PfxfHRhnX0WGybQPS63+RaOjpZsU+p/gh/K5N6SSZcrNpXByBf8RUS4ZOok1A==",
   "success": true,
-  "projectFilePath": "D:\\1. WORK\\ANKO\\Customer\\Customer.Test\\Customer.Test.csproj",
+  "projectFilePath": "D:\\1. WORK\\ANKO\\Customer\\Customer.Test\\CustomerLib.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Acer\\.nuget\\packages\\coverlet.collector\\1.3.0\\coverlet.collector.1.3.0.nupkg.sha512",
     "C:\\Users\\Acer\\.nuget\\packages\\fluentvalidation\\10.2.3\\fluentvalidation.10.2.3.nupkg.sha512",

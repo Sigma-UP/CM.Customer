@@ -1,6 +1,7 @@
 using Xunit;
+using CustomerLib.Main;
 using System.Collections.Generic;
-using Customer.Main.Entities.Validators;
+using CustomerLib.Entities.Validators;
 using FluentValidation.TestHelper;
 
 namespace CustomerLib.Test
@@ -130,14 +131,14 @@ namespace CustomerLib.Test
         [Fact]
         public void TotalPurchasesAmountShouldSaveNullOrDecimal()
         {
-            _c.TotalPurchasesAmount = -24.4;
+            _c.TotalPurchasesAmount = -24.4m;
             Assert.Null(_c.TotalPurchasesAmount);
 
-            _c.TotalPurchasesAmount = 0.0;
-            Assert.Equal((decimal)0.0, _c.TotalPurchasesAmount);
+            _c.TotalPurchasesAmount = 0.0m;
+            Assert.Equal(0.0m, _c.TotalPurchasesAmount);
 
-            _c.TotalPurchasesAmount = 1.2;
-            Assert.Equal((decimal)1.2, _c.TotalPurchasesAmount);
+            _c.TotalPurchasesAmount = 1.2m;
+            Assert.Equal(1.2m, _c.TotalPurchasesAmount);
 
             _c.TotalPurchasesAmount = null;
             Assert.Null(_c.TotalPurchasesAmount);
@@ -408,7 +409,7 @@ namespace CustomerLib.Test
     public class FluentValidatorsTest
     {
         [Fact]
-        public void CustomerValidatorShouldReturn()
+        public void CustomerValidatorShouldNotHaveAnyValidationErrors()
         {
             Address address1 = new Address()
             {
@@ -437,13 +438,123 @@ namespace CustomerLib.Test
                 Notes = new List<string>() { new string('a', 20) },
                 Phone = "+343434",
                 Email = "rpvv@ankocorp.com",
-                TotalPurchasesAmount = (double?)0.456
+                TotalPurchasesAmount = 0.456m
             };
             
             CustomerValidator validator = new CustomerValidator();
 
             var result = validator.TestValidate(customer);
             result.ShouldNotHaveAnyValidationErrors();
+        }
+
+        [Fact]
+        public void CustomerValidatorShouldHaveAddressValidationError()
+        {
+            Customer customer = new Customer()
+            {
+                FirstName = "Vlad",
+                LastName = "Gray",
+                Addresses = new List<Address>(),
+                Notes = new List<string>() { new string('a', 20) },
+                Phone = "+343434",
+                Email = "rpvv@ankocorp.com",
+                TotalPurchasesAmount = 0.456m
+            };
+
+            CustomerValidator validator = new CustomerValidator();
+
+            var result = validator.TestValidate(customer);
+            result.ShouldHaveValidationErrorFor(customer => customer.Addresses).WithErrorCode("PredicateValidator");
+        }
+    }
+
+    public class WrappedConsoleTest
+    {
+        [Fact]
+        public void ShouldOutputCorrectString()
+        {
+            IConsoleWrapper consoleWrapper = new MockConsoleWrapper();
+            consoleWrapper.WriteLine("Customer 1:");
+            consoleWrapper.Write("Name: ");
+            string FirstName = consoleWrapper.ReadLine();
+            consoleWrapper.Write("Surname: ");
+            string LastName = consoleWrapper.ReadLine();
+
+            Assert.Equal("Till", ((MockConsoleWrapper)consoleWrapper).inputLog[0]);
+            Assert.Equal("Lindemann", ((MockConsoleWrapper)consoleWrapper).inputLog[1]);
+
+            Assert.Equal("Customer 1:", ((MockConsoleWrapper)consoleWrapper).outputLog[0]);
+            Assert.Equal("Name: ", ((MockConsoleWrapper)consoleWrapper).outputLog[1]);
+            Assert.Equal("Surname: ", ((MockConsoleWrapper)consoleWrapper).outputLog[2]);
+
+        }
+    }
+
+    public class ProgramMainTest
+    {
+        [Fact]
+        public void ShouldReceiveCorrectValuesFromUserAndCreateAnInstanceOfCustomer()
+        {
+            Program.ConsoleWrapper = new MockConsoleWrapper();
+            Program.Main(new string [0]);
+            int lastOutputItemIdx = ((MockConsoleWrapper)(Program.ConsoleWrapper)).outputLog.Count - 1;
+            Assert.Equal("Success", ((MockConsoleWrapper)(Program.ConsoleWrapper)).outputLog[lastOutputItemIdx]);
+
+        }
+        
+    }
+    public class MockConsoleWrapper : IConsoleWrapper
+    {
+        public List<string> outputLog = new List<string>();
+        public List<string> inputLog = new List<string>();
+        int inCount = -1;
+
+        public string ReadLine()
+        {
+            inCount++;
+            if (inCount == 0)
+            {
+                inputLog.Add("Till");
+                return "Till";
+            }
+            else if (inCount == 1)
+            {
+                inputLog.Add("Lindemann");
+                return "Lindemann";
+            }
+            else if (inCount == 2)
+            {
+                inputLog.Add("+38090");
+                return "+38090";
+            }
+            else if (inCount == 3)
+            {
+                inputLog.Add("d@mail.com");
+                return "d@mail.com";
+            }
+            else if (inCount == 4)
+            {
+                inputLog.Add("13,9");
+                return "13,9";
+            }
+            else if (inCount == 5)
+            {
+                inputLog.Add("Some note");
+                return "Some note";
+            }
+            else
+            {
+                inputLog.Add("2");
+                return "2";
+            }
+        }
+        public void WriteLine(string str)
+        {
+            outputLog.Add(str);
+        }
+        public void Write(string str)
+        {
+            outputLog.Add(str);
         }
     }
 }

@@ -44,9 +44,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.Main.csproj",
-      "projectName": "Customer.Main",
-      "projectPath": "D:\\1. WORK\\ANKO\\Customer\\Customer\\Customer.Main.csproj",
+      "projectUniqueName": "D:\\1. WORK\\ANKO\\Customer\\Customer\\CustomerLib.Main.csproj",
+      "projectName": "CustomerLib.Main",
+      "projectPath": "D:\\1. WORK\\ANKO\\Customer\\Customer\\CustomerLib.Main.csproj",
       "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
       "outputPath": "D:\\1. WORK\\ANKO\\Customer\\Customer\\obj\\",
       "projectStyle": "PackageReference",

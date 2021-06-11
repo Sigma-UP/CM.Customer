@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using CustomerLib;
 
-namespace Customer.Main.Entities.Validators
+namespace CustomerLib.Entities.Validators
 {
     class AddressValidator:AbstractValidator<Address>
     {

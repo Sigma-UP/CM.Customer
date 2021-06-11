@@ -10,7 +10,7 @@ namespace CustomerLib
 		private string _lastName;
 		private string _phone;
 		private string _email;
-		private object _total;
+		private decimal? _total;
 		
 		private List<string>  _notes = new List<string>();
 		private List<Address> _addresses = new List<Address>();
@@ -85,15 +85,18 @@ namespace CustomerLib
 					_email = null;
 			}
 		}
-		public object TotalPurchasesAmount
+		public decimal? TotalPurchasesAmount
 		{
 			get
 			{
-				return (decimal?)(double?)_total;
+				if (_total.HasValue)
+					return _total;
+				else
+					return null;
 			}
 			set
 			{
-				if (value != null && (decimal?)(double?)value >= 0)
+				if (value != null && value >= 0)
 					_total = value;
 				else
 					_total = null;
@@ -115,32 +118,5 @@ namespace CustomerLib
 			} 
 		} 
         #endregion
-		/*
-        public List<string> CustomerValidator()
-		{
-			List<string> errors = new List<string>();
-
-			if (LastName == null) 
-				errors.Add("LastName");
-			
-			if (Addresses == null || Addresses.Count == 0)
-				errors.Add("Addresses");
-			else 
-				for(int i = 0; i < Addresses.Count; i++)
-					if (Addresses[i].AddressValidator() != null)
-						errors.Add($"Address_{i}");
-
-			if(Notes == null || Notes.Count == 0)
-				errors.Add("Notes");
-			else
-				for (int i = 0; i < Notes.Count; i++)
-					if (Notes[i] == null || Notes[i].IsEmpty())
-						errors.Add($"Note_{i}");
-
-			if (errors.Count == 0)
-				return null;
-			return errors;
-		}
-		*/
 	}
 }
