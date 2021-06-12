@@ -168,42 +168,6 @@ namespace CustomerLib.Test
             LocalNew.Notes = notes;
             Assert.Equal(notes, LocalNew.Notes);
         }
-
-       //[Fact]
-       //public void CustomerValidatorShouldReturnCorrectListOfErrors()
-       //{
-       //        List<string> err  = new List<string>();
-       //        Customer c2 = new Customer();
-       //
-       //    c2.Addresses.Add(new Address("11", 1, "City", "232322", "State", "United States","Line2_optional"));
-       //    c2.Addresses.Add(new Address(null, 1, "City", "232322", "State", "United States", null));
-       //    c2.Addresses.Add(new Address("dfr", 1, "", "232322", "State", "United States", null));
-       //    c2.Notes = null;
-       //    err.Add("LastName");
-       //    err.Add("Address_1");
-       //    err.Add("Address_2");
-       //    err.Add("Notes");
-       //    Assert.Equal(err, c2.CustomerValidator());
-       //    
-       //    c2 = new Customer();
-       //    err = new List<string>();
-       //    c2.LastName = "LastName";
-       //    c2.Addresses = null;
-       //    c2.Notes.Add("Note0");
-       //    c2.Notes.Add("   ");
-       //    c2.Notes.Add(null);
-       //    err.Add("Addresses");
-       //    err.Add("Note_1");
-       //    err.Add("Note_2");
-       //    Assert.Equal(err, c2.CustomerValidator());
-       //
-       //    c2 = new Customer();
-       //    err = null;
-       //    c2.LastName = "LastName";
-       //    c2.Addresses.Add(new Address("11", 1, "City", "232322", "State", "United States","Line2_optional"));
-       //    c2.Notes.Add("Note0");
-       //    Assert.Equal(err, c2.CustomerValidator());
-       //}
     }
 
     public class AddressTest
@@ -361,37 +325,6 @@ namespace CustomerLib.Test
             _address.Country = "Canada";
             Assert.Equal("Canada", _address.Country);
         }
-
-        //[Fact]
-        //public void AddressValidatorShouldReturnCorrectListOfErrors()
-        //{
-        //    List<Address> addresses = new List<Address>();
-        //    addresses.Add(new Address("11", 1, "City", "232322", "State", "United States", /"Line2_optional"));
-        //    addresses.Add(new Address(null, 1, "City", "232322", "State", "United States", null));
-        //    addresses.Add(new Address("11", 1, null, "232322", "State", "United States", "Line2_optional"));
-        //    addresses.Add(new Address("12", 2, "City", null, "State", "United States", null));
-        //    addresses.Add(new Address("12", 2, "City", "232322", null, "United States", null));
-        //    addresses.Add(new Address("12", 2, "City", "232322", "State", null, null));
-        //
-        //    List<string> errors1 = null;
-        //    Assert.Equal(errors1, addresses[0].AddressValidator());
-        //
-        //    errors1 = new List<string>(); 
-        //    errors1.Add("Line1");
-        //    Assert.Equal(errors1, addresses[1].AddressValidator());
-        //
-        //    errors1[0] = "City";
-        //    Assert.Equal(errors1, addresses[2].AddressValidator());
-        //
-        //    errors1[0] = "PostalCode";
-        //    Assert.Equal(errors1, addresses[3].AddressValidator());
-        //
-        //    errors1[0] = "State";
-        //    Assert.Equal(errors1, addresses[4].AddressValidator());
-        //
-        //    errors1[0] = "Country";
-        //    Assert.Equal(errors1, addresses[5].AddressValidator());
-        //}
 
         [Fact]
         public void AddressConstructorShouldSaveCorrectly()
