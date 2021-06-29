@@ -18,7 +18,7 @@ namespace CustomerLib
 		}
 
 
-		public Address(string line1, int addressType, string city, string postalCode, string state, string country, string line2 = null)
+		public Address(string line1, int addressType, string city, string postalCode, string state, string country, string line2 = "")
 		{
 			Line1 = line1;
 			Line2 = line2;
@@ -28,7 +28,6 @@ namespace CustomerLib
 			State = state;
 			Country = country;
 		}
-
 
 		public string Line1 { 
 			get => _line1;
@@ -116,6 +115,11 @@ namespace CustomerLib
 			}
 		}
 
+		public string GetAddressTypeAsString() =>
+			AddressType == 0 ? "Shipping" : "Billing";
+ 
+
+		/*
 		public List<string> AddressValidator()
 		{
 			//try something to use cycles
@@ -131,6 +135,7 @@ namespace CustomerLib
 			if(errors.Count==0)	return null;
 			return errors;
 		}
+		*/
 		public enum EAddressType
 		{
 			Shipping,
