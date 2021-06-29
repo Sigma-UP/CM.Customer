@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CustomerLib.Main
+namespace CustomerLib
 {
     public interface IConsoleWrapper
     {

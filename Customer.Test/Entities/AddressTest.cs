@@ -49,6 +49,18 @@ namespace CustomerLib.Test.Entities
         }
 
         [Fact]
+        public void GetAddressTypeAsStringShouldReturnStringShipping()
+        {
+            Assert.Equal(0, (int)_address.AddressType);
+
+            Assert.Equal("Shipping", _address.GetAddressTypeAsString());
+
+            _address.AddressType = (Address.EAddressType)1;
+            Assert.Equal("Billing", _address.GetAddressTypeAsString());
+        }
+
+
+        [Fact]
         public void CityShouldSaveNullOrCorrectString()
         {
             Assert.Null(_address.City);

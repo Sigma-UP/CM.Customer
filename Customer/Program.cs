@@ -2,7 +2,7 @@
 using CustomerLib.Entities.Validators;
 using System.Collections.Generic;
 using System.Text;
-namespace CustomerLib.Main
+namespace CustomerLib
 {
     public class Program
     {

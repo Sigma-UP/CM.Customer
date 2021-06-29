@@ -1,6 +1,6 @@
 ﻿using Xunit;
-using CustomerLib.Main;
 using System.Collections.Generic;
+using CustomerLib;
 namespace ConsoleWrapper.Test
 {
     public class ConsoleWrapperTest
