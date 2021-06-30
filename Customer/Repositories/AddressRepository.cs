@@ -1,7 +1,5 @@
-﻿using System;
+﻿using System.Data.SqlClient;
 using System.Collections.Generic;
-using System.Text;
-using System.Data.SqlClient;
 namespace CustomerLib.Repositories
 {
     public class AddressRepository
@@ -205,6 +203,44 @@ namespace CustomerLib.Repositories
             return null;
         }
 
+        public static List<Address> ReadAllAddresses(int customerId)
+        {
+            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            {
+                connection.Open();
+
+                var command = new SqlCommand("SELECT * FROM [Addresses] WHERE CustomerID = @customerId ORDER BY CustomerID", connection);
+
+                var addressCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                {
+                    Value = customerId
+                };
+
+                command.Parameters.Add(addressCustomerIDParam);
+
+                List<Address> readedAddresses = new List<Address>();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        readedAddresses.Add(new Address()
+                        {
+                            Line1 = reader["Line1"]?.ToString(),
+                            Line2 = reader["Line2"]?.ToString(),
+                            AddressType = (Address.EAddressType)(reader["AddressType"].ToString() == "Shipping" ? 0 : 1),
+                            City = reader["City"]?.ToString(),
+                            PostalCode = reader["PostalCode"]?.ToString(),
+                            State = reader["State"]?.ToString(),
+                            Country = reader["Country"]?.ToString(),
+                        });
+                    }
+                }
+
+                command.ExecuteNonQuery();
+                return readedAddresses;
+            }
+        }
+
         public void DeleteAll()
         {
             using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
@@ -216,7 +252,5 @@ namespace CustomerLib.Repositories
                 command.ExecuteNonQuery();
             }
         }
-        
-
     }
 }

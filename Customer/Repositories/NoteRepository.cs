@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System.Collections.Generic;
+using System.Data.SqlClient;
 namespace CustomerLib.Repositories
 {
     public class NoteRepository
@@ -102,6 +103,35 @@ namespace CustomerLib.Repositories
             }
 
             return null;
+        }
+        
+        public static List<string> ReadAllNotes(int customerId)
+        {
+            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            {
+                connection.Open();
+
+                var command = new SqlCommand("SELECT Note FROM [Notes] WHERE CustomerID = @CustomerID", connection);
+
+                var notesCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                {
+                    Value = customerId
+                };
+
+                command.Parameters.Add(notesCustomerIDParam);
+
+                List<string> readedNotes = new List<string>();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        readedNotes.Add(reader["Note"]?.ToString());
+                    }
+                }
+
+                command.ExecuteNonQuery();
+                return readedNotes;
+            }
         }
 
         public void DeleteAll()
