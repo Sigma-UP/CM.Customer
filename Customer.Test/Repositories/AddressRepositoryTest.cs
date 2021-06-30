@@ -87,5 +87,17 @@ namespace CustomerLib.Test.Repositories
             addressRepository.Delete(customerId, addressId);
             Assert.Null(addressRepository.Read(customerId, addressId));
         }
+    
+        [Fact]
+        public void ShouldBeAbleToReadAllAddresses()
+        {
+            AddressRepository addressRepo = new AddressRepository();
+            List<Address> readedAddresses = addressRepo.ReadAllAddresses(1);
+            
+            Assert.Equal(readedAddresses[1].Line1, "UPDATED LINE1");
+            Assert.Equal(readedAddresses[1].State, "Gloria");
+            Assert.Equal(readedAddresses[15].Line1, "d");
+            Assert.Equal(readedAddresses[15].State, "St");
+        }
     }
 }

@@ -61,5 +61,15 @@ namespace CustomerLib.Test.Repositories
             noteRepository.Delete(customerId, noteId);
             Assert.Null(noteRepository.Read(customerId, noteId));
         }
+
+        [Fact]
+        public void ShouldBeAbleToReadAllNotes()
+        {
+            var noteRepo = new NoteRepository();
+            List<string> readedNotes = noteRepo.ReadAllNotes(1);
+
+            Assert.Equal("NOTE", readedNotes[0]);
+            Assert.Equal("a", readedNotes[25]);
+        }
     }
 }
