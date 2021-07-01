@@ -21,9 +21,9 @@ namespace CustomerLib.Test.Repositories
             var notesRepository = new NoteRepository();
 
             var note = "NOTE";
-            notesRepository.Create(note, 1);
+            notesRepository.Create(note, 2);
 
-            var createdNote = notesRepository.Read(1, 3);
+            var createdNote = notesRepository.Read(2, 2);
             Assert.NotNull(createdNote);
 
             Assert.Equal("NOTE", createdNote);
@@ -65,8 +65,7 @@ namespace CustomerLib.Test.Repositories
         [Fact]
         public void ShouldBeAbleToReadAllNotes()
         {
-            var noteRepo = new NoteRepository();
-            List<string> readedNotes = noteRepo.ReadAllNotes(1);
+            List<string> readedNotes = NoteRepository.ReadAllNotes(1);
 
             Assert.Equal("NOTE", readedNotes[0]);
             Assert.Equal("a", readedNotes[25]);

@@ -91,8 +91,7 @@ namespace CustomerLib.Test.Repositories
         [Fact]
         public void ShouldBeAbleToReadAllAddresses()
         {
-            AddressRepository addressRepo = new AddressRepository();
-            List<Address> readedAddresses = addressRepo.ReadAllAddresses(1);
+            List<Address> readedAddresses = AddressRepository.ReadAllAddresses(1);
             
             Assert.Equal(readedAddresses[1].Line1, "UPDATED LINE1");
             Assert.Equal(readedAddresses[1].State, "Gloria");
