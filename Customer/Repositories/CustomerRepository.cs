@@ -7,15 +7,23 @@ namespace CustomerLib.Repositories
 {
     public class CustomerRepository
     {
-        public int GetCustomerIndex(Customer customer)
+        public static int GetCustomerIndex(Customer customer)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                var command = new SqlCommand("SELECT * FROM [Customers] WHERE PhoneNumber = @PhoneNumber", connection);
+                var command = new SqlCommand(
+                    "SELECT * " +
+                    "FROM [dbo].[Customers] " +
+                    "WHERE " +
+                    "[dbo].[Customers].[PhoneNumber] = @PhoneNumber", 
+                    connection);
 
-                var customerPhoneParam = new SqlParameter("PhoneNumber", System.Data.SqlDbType.VarChar, 15)
+                var customerPhoneParam = new SqlParameter("@PhoneNumber", System.Data.SqlDbType.VarChar, 15)
                 {
                     Value = customer.Phone
                 };
@@ -31,39 +39,46 @@ namespace CustomerLib.Repositories
                 command.ExecuteNonQuery();
 
                 return -1;
-            } 
+            }
         }
-        
+
         public void Create(Customer customer)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                SqlCommand command = new SqlCommand("INSERT INTO [dbo].[Customers] (FirstName, LastName, PhoneNumber, Email, TotalPurchasesAmount)" +
-                    "VALUES(@firstName, @lastName, @phoneNumber, @email, @totalPurchasesAmount); ", connection);
+                SqlCommand command = new SqlCommand(
+                    "INSERT INTO [dbo].[Customers] " +
+                    "( FirstName, LastName, PhoneNumber, Email, TotalPurchasesAmount ) " +
+                    "VALUES " +
+                    "( @FirstName, @LastName, @PhoneNumber, @Email, @TotalPurchasesAmount );", 
+                    connection);
 
-                var customerFirstNameParam = new SqlParameter("@firstName", System.Data.SqlDbType.VarChar, 50)
+                var customerFirstNameParam = new SqlParameter("@FirstName", System.Data.SqlDbType.VarChar, 50)
                 {
                     Value = customer.FirstName
                 };
 
-                var customerLastNameParam = new SqlParameter("@lastName", System.Data.SqlDbType.VarChar, 50)
+                var customerLastNameParam = new SqlParameter("@LastName", System.Data.SqlDbType.VarChar, 50)
                 {
                     Value = customer.LastName
                 };
 
-                var customerPhoneParam = new SqlParameter("@phoneNumber", System.Data.SqlDbType.VarChar, 15)
+                var customerPhoneParam = new SqlParameter("@PhoneNumber", System.Data.SqlDbType.VarChar, 15)
                 {
                     Value = customer.Phone
                 };
 
-                var customerEmailParam = new SqlParameter("@email", System.Data.SqlDbType.VarChar, 320)
+                var customerEmailParam = new SqlParameter("@Email", System.Data.SqlDbType.VarChar, 320)
                 {
                     Value = customer.Email
                 };
 
-                var customerTotalPurchasesAmountParam = new SqlParameter("@totalPurchasesAmount", System.Data.SqlDbType.Money)
+                var customerTotalPurchasesAmountParam = new SqlParameter("@TotalPurchasesAmount", System.Data.SqlDbType.Money)
                 {
                     Value = customer.TotalPurchasesAmount
                 };
@@ -73,7 +88,7 @@ namespace CustomerLib.Repositories
                 command.Parameters.Add(customerPhoneParam);
                 command.Parameters.Add(customerEmailParam);
                 command.Parameters.Add(customerTotalPurchasesAmountParam);
-                
+
                 command.ExecuteNonQuery();
 
                 int customerIndex = GetCustomerIndex(customer);
@@ -90,13 +105,21 @@ namespace CustomerLib.Repositories
 
         public Customer Read(int customerID)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                var command = new SqlCommand("SELECT * FROM [Customers] WHERE CustomerID = @customerId", connection);
+                var command = new SqlCommand(
+                    "SELECT * " +
+                    "FROM [dbo].[Customers] " +
+                    "WHERE " +
+                    "[dbo].[Customers].[CustomerID] = @CustomerId", 
+                    connection);
 
-                var customerCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                var customerCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
                     Value = customerID
                 };
@@ -114,8 +137,8 @@ namespace CustomerLib.Repositories
                             Phone = reader["PhoneNumber"].ToString(),
                             Email = reader["Email"]?.ToString(),
                             TotalPurchasesAmount = Convert.ToDecimal(reader["TotalPurchasesAmount"]),
-                            Addresses = AddressRepository.ReadAllAddresses(customerID),
-                            Notes = NoteRepository.ReadAllNotes(customerID)
+                            Addresses = new AddressRepository().ReadAllAddresses(customerID),
+                            Notes = new NoteRepository().ReadAllNotes(customerID)
                         };
                     }
                 }
@@ -128,44 +151,50 @@ namespace CustomerLib.Repositories
 
         public void Update(Customer customer, int customerIdx)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                SqlCommand command = new SqlCommand("UPDATE [dbo].[Customers] " +
+                SqlCommand command = new SqlCommand(
+                    "UPDATE [dbo].[Customers] " +
                     "SET" +
-                    "[dbo].[Customers].[FirstName] = @first_name," +
-                    "[dbo].[Customers].[LastName] = @last_name," +
-                    "[dbo].[Customers].[PhoneNumber] = @phone_number," +
-                    "[dbo].[Customers].[Email] = @email, " +
-                    "[dbo].[Customers].[TotalPurchasesAmount] = @total_purchases_amount " +
-                    "WHERE dbo.Customers.CustomerID = @customer_id; ", connection);
-                var customerFirstNameParam = new SqlParameter("@first_name", System.Data.SqlDbType.VarChar, 50)
+                    "[dbo].[Customers].[FirstName] = @FirstName," +
+                    "[dbo].[Customers].[LastName] = @LastName," +
+                    "[dbo].[Customers].[PhoneNumber] = @PhoneNumber," +
+                    "[dbo].[Customers].[Email] = @Email, " +
+                    "[dbo].[Customers].[TotalPurchasesAmount] = @TotalPurchasesAmount " +
+                    "WHERE " +
+                    "[dbo].[Customers].[CustomerID] = @CustomerID; ", 
+                    connection);
+                var customerFirstNameParam = new SqlParameter("@FirstName", System.Data.SqlDbType.VarChar, 50)
                 {
                     Value = customer.FirstName
                 };
 
-                var customerLastNameParam = new SqlParameter("@last_name", System.Data.SqlDbType.VarChar, 50)
+                var customerLastNameParam = new SqlParameter("@LastName", System.Data.SqlDbType.VarChar, 50)
                 {
                     Value = customer.LastName
                 };
 
-                var customerPhoneNumberParam = new SqlParameter("@phone_number", System.Data.SqlDbType.VarChar, 15)
+                var customerPhoneNumberParam = new SqlParameter("@PhoneNumber", System.Data.SqlDbType.VarChar, 15)
                 {
                     Value = customer.Phone
                 };
 
-                var customerEmailParam = new SqlParameter("@email", System.Data.SqlDbType.VarChar, 320)
+                var customerEmailParam = new SqlParameter("@Email", System.Data.SqlDbType.VarChar, 320)
                 {
                     Value = customer.Email
                 };
 
-                var customerTotalPurchasesAmountParam = new SqlParameter("@total_purchases_amount", System.Data.SqlDbType.Money)
+                var customerTotalPurchasesAmountParam = new SqlParameter("@TotalPurchasesAmount", System.Data.SqlDbType.Money)
                 {
                     Value = customer.TotalPurchasesAmount
                 };
 
-                var customerCustomerIDParam = new SqlParameter("@customer_id", System.Data.SqlDbType.Int)
+                var customerCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
                     Value = customerIdx
                 };
@@ -182,18 +211,48 @@ namespace CustomerLib.Repositories
 
         public void Delete(int customerId)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                var command = new SqlCommand("DELETE FROM [Customers] WHERE CustomerID = @CustomerID", connection);
+                var command = new SqlCommand(
+                    "DELETE " +
+                    "FROM [dbo].[Customers] " +
+                    "WHERE " +
+                    "[dbo].[Customers].[CustomerID] = @CustomerID", 
+                    connection);
 
-                var customerCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                var customerCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
                     Value = customerId
                 };
 
                 command.Parameters.Add(customerCustomerIDParam);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteAll()
+        {
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
+            {
+                connection.Open();
+
+                var command = new SqlCommand(
+                    "DELETE FROM [Customers];" +
+                    "DELETE FROM [Addresses];" +
+                    "DELETE FROM [Notes];" +
+                    "DBCC CHECKIDENT (Customers, RESEED, 0);" +
+                    "DBCC CHECKIDENT (Addresses, RESEED, 0);" +
+                    "DBCC CHECKIDENT (Notes, RESEED, 0);", 
+                    connection);
 
                 command.ExecuteNonQuery();
             }

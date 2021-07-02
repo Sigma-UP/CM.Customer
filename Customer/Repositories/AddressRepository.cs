@@ -6,13 +6,21 @@ namespace CustomerLib.Repositories
     {
         public void Create(Address address, int customerIdx)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                SqlCommand command = new SqlCommand("INSERT INTO [dbo].[Addresses] (CustomerID, Line1, Line2, AddressType, City, PostalCode, [State], Country)" +
-                    "VALUES(@CustomerID, @Line1, @Line2, @AddressType, @City, @PostalCode, @State, @Country)", connection);
-                var addressCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                SqlCommand command = new SqlCommand(
+                    "INSERT " +
+                    "INTO [dbo].[Addresses] " +
+                    "( CustomerID, Line1, Line2, AddressType, City, PostalCode, [State], Country )" +
+                    "VALUES " +
+                    "( @CustomerID, @Line1, @Line2, @AddressType, @City, @PostalCode, @State, @Country )",
+                    connection);
+                var addressCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
                     Value = customerIdx
                 };
@@ -69,18 +77,33 @@ namespace CustomerLib.Repositories
         {
 
             //address`s fields will overwrite data by indexes
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                SqlCommand command = new SqlCommand("UPDATE [dbo].[Addresses] SET Line1 = @Line1, Line2 = @Line2, AddressType = @AddressType, City = @City, PostalCode = @PostalCode, [State] = @State, Country = @Country " +
-                    "WHERE CustomerID = @CustomerID AND AddressID = @AddressID ", connection);
-                var addressCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                SqlCommand command = new SqlCommand(
+                    "UPDATE [dbo].[Addresses] " +
+                    "SET " +
+                    "[dbo].[Addresses].[Line1]          = @Line1, " +
+                    "[dbo].[Addresses].[Line2]          = @Line2, " +
+                    "[dbo].[Addresses].[AddressType]    = @AddressType, " +
+                    "[dbo].[Addresses].[City]           = @City, " +
+                    "[dbo].[Addresses].[PostalCode]     = @PostalCode, " +
+                    "[dbo].[Addresses].[State]          = @State, " +
+                    "[dbo].[Addresses].[Country]        = @Country " +
+                    "WHERE " +
+                    "[dbo].[Addresses].[CustomerID] = @CustomerID AND " +
+                    "[dbo].[Addresses].[AddressID]  = @AddressID ", 
+                    connection);
+                var addressCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
                     Value = customerIdx
                 };
 
-                var addressAddressIDParam = new SqlParameter("AddressID", System.Data.SqlDbType.Int)
+                var addressAddressIDParam = new SqlParameter("@AddressID", System.Data.SqlDbType.Int)
                 {
                     Value = addressIdx
                 };
@@ -137,17 +160,26 @@ namespace CustomerLib.Repositories
 
         public void Delete(int customerId, int addressId)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                var command = new SqlCommand("DELETE FROM [Addresses] WHERE CustomerID = @CustomerID AND AddressID = @AddressID", connection);
+                var command = new SqlCommand(
+                    "DELETE " +
+                    "FROM [Addresses] " +
+                    "WHERE " +
+                    "[dbo].[Addresses].[CustomerID] = @CustomerID AND " +
+                    "[dbo].[Addresses].[AddressID]  = @AddressID", 
+                    connection);
 
-                var addressCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                var addressCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
                     Value = customerId
                 };
-                var addressIDParam = new SqlParameter("AddressID", System.Data.SqlDbType.Int)
+                var addressIDParam = new SqlParameter("@AddressID", System.Data.SqlDbType.Int)
                 {
                     Value = addressId
                 };
@@ -162,17 +194,26 @@ namespace CustomerLib.Repositories
 
         public Address Read(int customerId, int addressId)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                var command = new SqlCommand("SELECT * FROM [Addresses] WHERE CustomerID = @customerId AND AddressID = @AddressID", connection);
+                var command = new SqlCommand(
+                    "SELECT * " +
+                    "FROM [Addresses] " +
+                    "WHERE " +
+                    "[dbo].[Addresses].[CustomerID] = @CustomerId AND " +
+                    "[dbo].[Addresses].[AddressID]  = @AddressID", 
+                    connection);
 
-                var addressCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                var addressCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
                     Value = customerId
                 };
-                var addressIDParam = new SqlParameter("AddressID", System.Data.SqlDbType.Int)
+                var addressIDParam = new SqlParameter("@AddressID", System.Data.SqlDbType.Int)
                 {
                     Value = addressId
                 };
@@ -203,15 +244,25 @@ namespace CustomerLib.Repositories
             return null;
         }
 
-        public static List<Address> ReadAllAddresses(int customerId)
+        public List<Address> ReadAllAddresses(int customerId)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                var command = new SqlCommand("SELECT * FROM [Addresses] WHERE CustomerID = @customerId ORDER BY CustomerID", connection);
+                var command = new SqlCommand(
+                    "SELECT * " +
+                    "FROM [Addresses] " +
+                    "WHERE " +
+                    "[dbo].[Addresses].[CustomerID] = @customerId " +
+                    "ORDER BY " +
+                    "[dbo].[Addresses].[CustomerID]", 
+                    connection);
 
-                var addressCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                var addressCustomerIDParam = new SqlParameter("@customerID", System.Data.SqlDbType.Int)
                 {
                     Value = customerId
                 };
@@ -243,11 +294,18 @@ namespace CustomerLib.Repositories
 
         public void DeleteAll()
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                var command = new SqlCommand("DELETE FROM [Addresses]", connection);
+                var command = new SqlCommand(
+                    "DELETE " +
+                    "FROM [Addresses];" +
+                    "DBCC CHECKIDENT (Addresses, RESEED, 0);", 
+                    connection);
 
                 command.ExecuteNonQuery();
             }

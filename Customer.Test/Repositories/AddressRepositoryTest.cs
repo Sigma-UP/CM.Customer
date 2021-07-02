@@ -14,17 +14,40 @@ namespace CustomerLib.Test.Repositories
             Assert.NotNull(addressRepository);
         }
 
-
         [Fact]
         public void ShouldBeAbleToCreateAddress()
         {
+            var addressRepository = new AddressRepository(); 
+            var customerRepository = new CustomerRepository();
+            
+            customerRepository.DeleteAll();
+            customerRepository.Create(new Customer()
+                {
+                    FirstName = "Alex",
+                    LastName = "Xlea",
+                    Addresses = new List<Address>() {
+                        new Address(){
+                        Line1 = "CustomerLine1",
+                        Line2 = "CustomerLine2",
+                        AddressType = Address.EAddressType.Shipping,
+                        City = "Denver",
+                        PostalCode = "121212",
+                        State = "State",
+                        Country = "Canada" } 
+                    },
+                    Notes = new List<string>() { 
+                        "Customer Note" 
+                    },
+                    Phone = "+36098983443",
+                    Email = "myname@gmail.com",
+                    TotalPurchasesAmount = (decimal?)1234.3
+                });
 
-            var addressRepository = new AddressRepository();
 
             var address = new Address("Line1 from Repo", 0, "Denver", "213223", "Gloria", "United States", "Line2 from Repo");
             addressRepository.Create(address, 1);
 
-            var createdAddress = addressRepository.Read(1, 1);
+            var createdAddress = addressRepository.Read(1, 2);
             Assert.NotNull(createdAddress);
 
             Assert.Equal(address.Line1, createdAddress.Line1);
@@ -41,9 +64,36 @@ namespace CustomerLib.Test.Repositories
         public void ShouldBeAbleToReadAddress()
         {
             var addressRepository = new AddressRepository();
+            var customerRepository = new CustomerRepository();
 
-            var address = new Address("Line1 from Repo", 0, "Denver", "213223", "Gloria", "United States", "Line2 from Repo");
-            var createdAddress = addressRepository.Read(1, 1);
+            customerRepository.DeleteAll();
+            customerRepository.Create(new Customer()
+            {
+                FirstName = "Alex",
+                LastName = "Xlea",
+                Addresses = new List<Address>() {
+                        new Address(){
+                        Line1 = "CustomerLine1",
+                        Line2 = "CustomerLine2",
+                        AddressType = Address.EAddressType.Shipping,
+                        City = "Denver",
+                        PostalCode = "121212",
+                        State = "State",
+                        Country = "Canada" }
+                    },
+                Notes = new List<string>() {
+                        "Customer Note"
+                    },
+                Phone = "+36098983443",
+                Email = "myname@gmail.com",
+                TotalPurchasesAmount = (decimal?)1234.3
+            });
+
+
+            var address = new Address("Line1 from Repo 2", 0, "Denver", "213223", "Gloria", "United States", "Line2 from Repo 2");
+            addressRepository.Create(address, 1);
+
+            var createdAddress = addressRepository.Read(1, 2);
             Assert.NotNull(createdAddress);
             
             Assert.Equal(address.Line1, createdAddress.Line1);
@@ -60,9 +110,28 @@ namespace CustomerLib.Test.Repositories
         public void ShouldBeAbleToUpdateAddress()
         {
             var addressRepository = new AddressRepository();
+            var customerRepository = new CustomerRepository();
             var address = new Address("UPDATED LINE1", 0, "Denver", "213223", "Gloria", "United States", "Line2 from Repo");
-            addressRepository.Update(address, 1, 1);
 
+
+            customerRepository.DeleteAll();
+            customerRepository.Create(new Customer()
+            {
+                FirstName = "Alex",
+                LastName = "Xlea",
+                Addresses = new List<Address>() {
+                    address
+                    },
+                Notes = new List<string>() {
+                        "Customer Note"
+                    },
+                Phone = "+36098983443",
+                Email = "myname@gmail.com",
+                TotalPurchasesAmount = (decimal?)1234.3
+            });
+            
+
+            addressRepository.Update(address, 1, 1);
             var updatedAddress = addressRepository.Read(1, 1);
             Assert.NotNull(updatedAddress);
 
@@ -79,7 +148,32 @@ namespace CustomerLib.Test.Repositories
         public void ShouldBeAbleToDeleteAddress()
         {
             var addressRepository = new AddressRepository();
+            var customerRepository = new CustomerRepository();
             int addressId = 1, customerId = 1;
+
+
+            customerRepository.DeleteAll();
+            customerRepository.Create(new Customer()
+            {
+                FirstName = "Alex",
+                LastName = "Xlea",
+                Addresses = new List<Address>() {
+                    new Address(){
+                        Line1 = "CustomerLine1",
+                        Line2 = "CustomerLine2",
+                        AddressType = Address.EAddressType.Shipping,
+                        City = "Denver",
+                        PostalCode = "121212",
+                        State = "State",
+                        Country = "Canada" }
+                    },
+                Notes = new List<string>() {
+                        "Customer Note"
+                    },
+                Phone = "+36098983443",
+                Email = "myname@gmail.com",
+                TotalPurchasesAmount = (decimal?)1234.3
+            });
 
             var address = new Address("Line1 from Repo", 0, "Denver", "213223", "Gloria", "United States", "Line2 from Repo");
             addressRepository.Create(address, customerId);
@@ -91,12 +185,45 @@ namespace CustomerLib.Test.Repositories
         [Fact]
         public void ShouldBeAbleToReadAllAddresses()
         {
-            List<Address> readedAddresses = AddressRepository.ReadAllAddresses(1);
+            var addressRepository = new AddressRepository();
+            var customerRepository = new CustomerRepository();
+            customerRepository.DeleteAll();
+            customerRepository.Create(new Customer()
+            {
+                FirstName = "Alex",
+                LastName = "Xlea",
+                Addresses = new List<Address>() {
+                    new Address(){
+                        Line1 = "CustomerLine1",
+                        Line2 = "CustomerLine2",
+                        AddressType = Address.EAddressType.Shipping,
+                        City = "Denver",
+                        PostalCode = "121212",
+                        State = "State",
+                        Country = "Canada" },
+                    new Address(){
+                        Line1 = "CustomerLine12",
+                        Line2 = "CustomerLine22",
+                        AddressType = Address.EAddressType.Shipping,
+                        City = "Denver",
+                        PostalCode = "121212",
+                        State = "SecondState",
+                        Country = "Canada" }
+                    },
+                Notes = new List<string>() {
+                        "Customer Note"
+                    },
+                Phone = "+36098983443",
+                Email = "myname@gmail.com",
+                TotalPurchasesAmount = (decimal?)1234.3
+            });
+
+            List<Address> readedAddresses = addressRepository.ReadAllAddresses(1);
             
-            Assert.Equal(readedAddresses[1].Line1, "UPDATED LINE1");
-            Assert.Equal(readedAddresses[1].State, "Gloria");
-            Assert.Equal(readedAddresses[15].Line1, "d");
-            Assert.Equal(readedAddresses[15].State, "St");
+            Assert.Equal("CustomerLine1", readedAddresses[0].Line1);
+            Assert.Equal("State", readedAddresses[0].State);
+            Assert.Equal("CustomerLine12", readedAddresses[1].Line1);
+            Assert.Equal("SecondState", readedAddresses[1].State);
         }
     }
 }

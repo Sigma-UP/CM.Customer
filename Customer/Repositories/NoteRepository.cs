@@ -6,13 +6,21 @@ namespace CustomerLib.Repositories
     {
         public void Create(string note, int customerIdx)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                SqlCommand command = new SqlCommand("INSERT INTO [dbo].[Notes] (CustomerID, Note)" +
-                    "VALUES(@CustomerID, @Note)", connection);
-                var noteCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                SqlCommand command = new SqlCommand(
+                    "INSERT " +
+                    "INTO [dbo].[Notes] " +
+                    "( CustomerID, Note ) " +
+                    "VALUES " +
+                    "( @CustomerID, @Note )", 
+                    connection);
+                var noteCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
                     Value = customerIdx
                 };
@@ -32,12 +40,19 @@ namespace CustomerLib.Repositories
         public void Update(string note, int customerIdx, int noteIdx)
         {
 
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                SqlCommand command = new SqlCommand("UPDATE [dbo].[Notes] SET Note = @Note", connection);
-                var noteNoteParam = new SqlParameter("Note", System.Data.SqlDbType.VarChar, 500)
+                SqlCommand command = new SqlCommand(
+                    "UPDATE [dbo].[Notes] " +
+                    "SET " +
+                    "[dbo].[Notes].[Note] = @Note", 
+                    connection);
+                var noteNoteParam = new SqlParameter("@Note", System.Data.SqlDbType.VarChar, 500)
                 {
                     Value = note
                 };
@@ -50,17 +65,26 @@ namespace CustomerLib.Repositories
 
         public void Delete(int customerId, int noteId)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                var command = new SqlCommand("DELETE FROM [Notes] WHERE CustomerID = @CustomerID AND NoteID = @NoteID", connection);
+                var command = new SqlCommand(
+                    "DELETE " +
+                    "FROM [dbo].[Notes] " +
+                    "WHERE " +
+                    "[dbo].[Notes].[CustomerID] = @CustomerID AND " +
+                    "[dbo].[Notes].[NoteID] = @NoteID", 
+                    connection);
 
-                var noteCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                var noteCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
                     Value = customerId
                 };
-                var noteNoteIDParam = new SqlParameter("NoteID", System.Data.SqlDbType.Int)
+                var noteNoteIDParam = new SqlParameter("@NoteID", System.Data.SqlDbType.Int)
                 {
                     Value = noteId
                 };
@@ -75,17 +99,26 @@ namespace CustomerLib.Repositories
 
         public string Read(int customerId, int noteId)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                var command = new SqlCommand("SELECT * FROM [Notes] WHERE CustomerID = @customerId AND NoteID = @NoteID", connection);
+                var command = new SqlCommand(
+                    "SELECT * " +
+                    "FROM [dbo].[Notes] " +
+                    "WHERE " +
+                    "[dbo].[Notes].[CustomerID] = @CustomerID AND " +
+                    "[dbo].[Notes].[NoteID] = @NoteID", 
+                    connection);
 
-                var noteCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                var noteCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
                     Value = customerId
                 };
-                var noteNoteIDParam = new SqlParameter("NoteID", System.Data.SqlDbType.Int)
+                var noteNoteIDParam = new SqlParameter("@NoteID", System.Data.SqlDbType.Int)
                 {
                     Value = noteId
                 };
@@ -105,15 +138,23 @@ namespace CustomerLib.Repositories
             return null;
         }
         
-        public static List<string> ReadAllNotes(int customerId)
+        public List<string> ReadAllNotes(int customerId)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                var command = new SqlCommand("SELECT Note FROM [Notes] WHERE CustomerID = @CustomerID", connection);
+                var command = new SqlCommand(
+                    "SELECT [dbo].[Notes].[Note] " +
+                    "FROM [dbo].[Notes] " +
+                    "WHERE " +
+                    "[dbo].[Notes].[CustomerID] = @CustomerID", 
+                    connection);
 
-                var notesCustomerIDParam = new SqlParameter("CustomerID", System.Data.SqlDbType.Int)
+                var notesCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
                     Value = customerId
                 };
@@ -134,18 +175,30 @@ namespace CustomerLib.Repositories
             }
         }
 
-        public void DeleteAll()
+        public void DeleteAll(int customerId)
         {
-            using (var connection = new SqlConnection("Server=ALFA;Database=CustomerLib_Bezslyozniy;Trusted_Connection=True;"))
+            using (var connection = new SqlConnection(
+                "Server=ALFA;" +
+                "Database=CustomerLib_Bezslyozniy;" +
+                "Trusted_Connection=True;"))
             {
                 connection.Open();
 
-                var command = new SqlCommand("DELETE FROM [Addresses]", connection);
+                var command = new SqlCommand(
+                    "DELETE " +
+                    "FROM [dbo].[Notes] " +
+                    "WHERE " +
+                    "[dbo].[Notes].[Customer] = @CustomerID;" +
+                    "DBCC CHECKIDENT (Notes, RESEED, 0);", 
+                    connection);
+                var noteCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
+                {
+                    Value = customerId
+                };
 
+                command.Parameters.Add(noteCustomerIDParam);
                 command.ExecuteNonQuery();
             }
         }
-
-
     }
 }

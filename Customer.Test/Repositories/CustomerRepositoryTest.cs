@@ -16,46 +16,41 @@ namespace CustomerLib.Test.Repositories
         [Fact]
         public void ShouldBeAbleToCreateCustomer()
         {
-
-            var cutomerRepository = new CustomerRepository();
-
-            var address1 = new Address()
+            var customerRepository = new CustomerRepository();
+            customerRepository.DeleteAll();
+            customerRepository.Create(new Customer()
             {
-                Line1 = "CustomerLine1",
-                Line2 = "CustomerLine2",
-                AddressType = Address.EAddressType.Shipping,
-                City = "Denver",
-                PostalCode = "121212",
-                State = "State",
-                Country = "Canada"
-            };
-
-            string note1 = "Customer Note";
-
-            var customer = new Customer() { 
                 FirstName = "Alex",
                 LastName = "Xlea",
-                Addresses = new List<Address>() { address1 },
-                Notes = new List<string>() { note1},
+                Addresses = new List<Address>() {
+                        new Address(){
+                        Line1 = "CustomerLine1",
+                        Line2 = "CustomerLine2",
+                        AddressType = Address.EAddressType.Shipping,
+                        City = "Denver",
+                        PostalCode = "121212",
+                        State = "State",
+                        Country = "Canada" }
+                    },
+                Notes = new List<string>() {
+                        "Customer Note"
+                    },
                 Phone = "+36098983443",
                 Email = "myname@gmail.com",
                 TotalPurchasesAmount = (decimal?)1234.3
-            };
+            });
 
-            cutomerRepository.Create(customer);
-
-            var createdCustomer = cutomerRepository.Read(1);
+            var createdCustomer = customerRepository.Read(1);
             Assert.NotNull(createdCustomer);
 
-            Assert.Equal(customer.FirstName, createdCustomer.FirstName);
-            Assert.Equal(customer.LastName, createdCustomer.LastName);
+            Assert.Equal("Alex", createdCustomer.FirstName);
+            Assert.Equal("Xlea", createdCustomer.LastName);
 
+            Assert.Equal(Address.EAddressType.Shipping, createdCustomer.Addresses[0].AddressType);
+            Assert.Equal("Denver", createdCustomer.Addresses[0].City);
+            Assert.Equal("121212", createdCustomer.Addresses[0].PostalCode);
 
-            Assert.Equal(customer.Addresses[0].AddressType, createdCustomer.Addresses[0].AddressType);
-            Assert.Equal(customer.Addresses[0].City, createdCustomer.Addresses[0].City);
-            Assert.Equal(customer.Addresses[0].PostalCode, createdCustomer.Addresses[0].PostalCode);
-
-            Assert.Equal(customer.Notes[0], createdCustomer.Notes[0]);
+            Assert.Equal("Customer Note", createdCustomer.Notes[0]);
 
         }
 
@@ -63,40 +58,42 @@ namespace CustomerLib.Test.Repositories
         public void ShouldBeAbleToReadCustomer()
         {
             var customerRepository = new CustomerRepository();
+            customerRepository.DeleteAll();
 
-            var address1 = new Address()
-            {
-                Line1 = "CustomerLine1",
-                Line2 = "CustomerLine2",
-                AddressType = Address.EAddressType.Shipping,
-                City = "Denver",
-                PostalCode = "121212",
-                State = "State",
-                Country = "Canada"
-            };
-
-            string note1 = "Customer Note";
-
-            var customer = new Customer()
+            customerRepository.Create(new Customer()
             {
                 FirstName = "Alex",
                 LastName = "Xlea",
-                Addresses = new List<Address>() { address1 },
-                Notes = new List<string>() { note1 },
+                Addresses = new List<Address>() {
+                        new Address(){
+                        Line1 = "CustomerLine1",
+                        Line2 = "CustomerLine2",
+                        AddressType = Address.EAddressType.Shipping,
+                        City = "Denver",
+                        PostalCode = "121212",
+                        State = "State",
+                        Country = "Canada" }
+                    },
+                Notes = new List<string>() {
+                        "Customer Note"
+                    },
                 Phone = "+36098983443",
                 Email = "myname@gmail.com",
                 TotalPurchasesAmount = (decimal?)1234.3
-            };
+            });
+
             var readedCustomer = customerRepository.Read(1);
+
             Assert.NotNull(readedCustomer);
 
-            Assert.Equal(customer.FirstName, readedCustomer.FirstName);
-            Assert.Equal(customer.LastName, readedCustomer.LastName);
-            Assert.Equal(customer.Addresses[0].Line1, readedCustomer.Addresses[0].Line1);
-            Assert.Equal(customer.Notes[0], readedCustomer.Notes[0]);
-            Assert.Equal(customer.Phone, readedCustomer.Phone);
-            Assert.Equal(customer.Email, readedCustomer.Email);
-            Assert.Equal(customer.TotalPurchasesAmount, readedCustomer.TotalPurchasesAmount);
+            Assert.Equal("Alex", readedCustomer.FirstName);
+            Assert.Equal("Xlea", readedCustomer.LastName);
+
+            Assert.Equal(Address.EAddressType.Shipping, readedCustomer.Addresses[0].AddressType);
+            Assert.Equal("Denver", readedCustomer.Addresses[0].City);
+            Assert.Equal("121212", readedCustomer.Addresses[0].PostalCode);
+
+            Assert.Equal("Customer Note", readedCustomer.Notes[0]);
 
         }
 
@@ -104,32 +101,34 @@ namespace CustomerLib.Test.Repositories
         public void ShouldBeAbleToUpdateAddress()
         {
             var customerRepository = new CustomerRepository();
-            var address1 = new Address()
-            {
-                Line1 = "CustomerLine1",
-                Line2 = "CustomerLine2",
-                AddressType = Address.EAddressType.Shipping,
-                City = "Denver",
-                PostalCode = "121212",
-                State = "State",
-                Country = "Canada"
-            };
-
-            string note1 = "Customer Note";
+            customerRepository.DeleteAll();
 
             var customer = new Customer()
             {
                 FirstName = "Alex",
-                LastName = "Alekseev",
-                Addresses = new List<Address>() { address1 },
-                Notes = new List<string>() { note1 },
+                LastName = "Xlea",
+                Addresses = new List<Address>() {
+                        new Address(){
+                        Line1 = "CustomerLine1",
+                        Line2 = "CustomerLine2",
+                        AddressType = Address.EAddressType.Shipping,
+                        City = "Denver",
+                        PostalCode = "121212",
+                        State = "State",
+                        Country = "Canada" }
+                    },
+                Notes = new List<string>() {
+                        "Customer Note"
+                    },
                 Phone = "+36098983443",
                 Email = "myname@gmail.com",
                 TotalPurchasesAmount = (decimal?)1234.3
             };
-            customerRepository.Update(customer, 2);
+            customerRepository.Create(customer);
+            customer.FirstName = "Mikhail";
+            customerRepository.Update(customer, 1);
 
-            var updatedCustomer = customerRepository.Read(2);
+            var updatedCustomer = customerRepository.Read(1);
             Assert.NotNull(updatedCustomer);
 
             Assert.Equal(customer.FirstName, updatedCustomer.FirstName);
@@ -140,11 +139,34 @@ namespace CustomerLib.Test.Repositories
         [Fact]
         public void ShouldBeAbleToDeleteCustomer()
         {
+            
             var customerRepository = new CustomerRepository();
             int customerId = 1;
-
+            customerRepository.DeleteAll();
+            customerRepository.Create(new Customer()
+            {
+                FirstName = "Alex",
+                LastName = "Xlea",
+                Addresses = new List<Address>() {
+                        new Address(){
+                        Line1 = "CustomerLine1",
+                        Line2 = "CustomerLine2",
+                        AddressType = Address.EAddressType.Shipping,
+                        City = "Denver",
+                        PostalCode = "121212",
+                        State = "State",
+                        Country = "Canada" }
+                    },
+                Notes = new List<string>() {
+                        "Customer Note"
+                    },
+                Phone = "+36098983443",
+                Email = "myname@gmail.com",
+                TotalPurchasesAmount = (decimal?)1234.3
+            });
             customerRepository.Delete(customerId);
             Assert.Null(customerRepository.Read(customerId));
+
         }
     }
 }

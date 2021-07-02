@@ -15,9 +15,9 @@ namespace CustomerLib
 		private List<string>  _notes = new List<string>();
 		private List<Address> _addresses = new List<Address>();
 
-        #region Constructors.
-        //public Customer(string firstName, string lastName, List<Address> /addresses,/ string phone, string email, List<string> notes, object //totalPurchasesAmount)
-        //{
+		#region Constructors.
+		//public Customer(string firstName, string lastName, List<Address> /addresses,/ string phone, string email, List<string> notes, object //totalPurchasesAmount)
+		//{
 		//	FirstName = firstName;
 		//	LastName = lastName;
 		//	Addresses = addresses;
@@ -26,9 +26,8 @@ namespace CustomerLib
 		//	Notes = notes;
 		//	TotalPurchasesAmount = totalPurchasesAmount;
 		//}
-        public Customer()
-        {
-		}
+		public Customer()
+		{ }
 		#endregion
         #region Getters and setters.
         public override string FirstName 
