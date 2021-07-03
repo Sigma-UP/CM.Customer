@@ -1,11 +1,8 @@
 name: Code Cov
 
 on:
-  push:
-    branches: [ developed-branch ]
-  pull_request:
-    branches: [ master ]
-
+  [ push ] 
+   
 jobs:
   build:
 
