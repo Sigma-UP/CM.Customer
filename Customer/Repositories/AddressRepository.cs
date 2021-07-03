@@ -1,7 +1,9 @@
 ﻿using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 namespace CustomerLib.Repositories
 {
+    [ExcludeFromCodeCoverage]
     public class AddressRepository
     {
         public void Create(Address address, int customerIdx)

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 namespace CustomerLib.Repositories
 {
+    [ExcludeFromCodeCoverage]
     public class NoteRepository
     {
         public void Create(string note, int customerIdx)

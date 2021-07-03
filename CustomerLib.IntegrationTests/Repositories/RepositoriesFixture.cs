@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using CustomerLib.Repositories;
 using Xunit;
-
+using System.Diagnostics.CodeAnalysis;
 namespace CustomerLib.IntegrationTests.Repositories
 {
+    [ExcludeFromCodeCoverage]
     public class RepositoriesFixture
     {
         public Customer CreateMockCustomer()
