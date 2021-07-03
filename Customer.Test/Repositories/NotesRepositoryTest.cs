@@ -10,85 +10,38 @@ namespace CustomerLib.Test.Repositories
         [Fact]
         public void ShouldBeAbleToCreateNotesRepository()
         {
-            var notesRepository = new NoteRepository();
-            Assert.NotNull(notesRepository);
+            var noteRepository = new NoteRepository();
+            Assert.NotNull(noteRepository);
         }
 
 
         [Fact]
         public void ShouldBeAbleToCreateNotes()
         {
-            var notesRepository = new NoteRepository();
-            var customerRepository = new CustomerRepository();
+            var noteRepository = new NoteRepository();
+            var fixture = new RepositoriesFixture();
+            var customer = fixture.CreateMockCustomer();
 
-            customerRepository.DeleteAll();
-            customerRepository.Create(new Customer()
-            {
-                FirstName = "Alex",
-                LastName = "Xlea",
-                Addresses = new List<Address>() {
-                        new Address(){
-                        Line1 = "CustomerLine1",
-                        Line2 = "CustomerLine2",
-                        AddressType = Address.EAddressType.Shipping,
-                        City = "Denver",
-                        PostalCode = "121212",
-                        State = "State",
-                        Country = "Canada" }
-                    },
-                Notes = new List<string>() {
-                        "Customer Note First"
-                    },
-                Phone = "+36098983443",
-                Email = "myname@gmail.com",
-                TotalPurchasesAmount = (decimal?)1234.3
-            });
+            var readedNote = noteRepository.Read(1, 1);
 
-            var createdNote = "Customer Note Second";
-            notesRepository.Create(createdNote, 1);
-
-
-            var readedNote = notesRepository.Read(1, 2);
             Assert.NotNull(readedNote);
-            Assert.Equal(createdNote, readedNote);
+            Assert.Equal(customer.Notes[0], readedNote);
         }
 
         [Fact]
         public void ShouldBeAbleToReadNotes()
         {
             var noteRepository = new NoteRepository();
-            var customerRepository = new CustomerRepository();
-
-            customerRepository.DeleteAll();
-            customerRepository.Create(new Customer()
-            {
-                FirstName = "Alex",
-                LastName = "Xlea",
-                Addresses = new List<Address>() {
-                        new Address(){
-                        Line1 = "CustomerLine1",
-                        Line2 = "CustomerLine2",
-                        AddressType = Address.EAddressType.Shipping,
-                        City = "Denver",
-                        PostalCode = "121212",
-                        State = "State",
-                        Country = "Canada" }
-                    },
-                Notes = new List<string>() {
-                        "Customer Note First",
-                        "Customer Note Second"
-                    },
-                Phone = "+36098983443",
-                Email = "myname@gmail.com",
-                TotalPurchasesAmount = (decimal?)1234.3
-            });
+            var fixture = new RepositoriesFixture();
+            var customer = fixture.CreateMockCustomer();
+            noteRepository.Create("Customer Note Second", 1);
 
             var readedNote1 = noteRepository.Read(1, 1);
             var readedNote2 = noteRepository.Read(1, 2);
             
             Assert.NotNull(readedNote1);
             Assert.NotNull(readedNote2);
-            Assert.Equal("Customer Note First", readedNote1);
+            Assert.Equal(customer.Notes[0], readedNote1);
             Assert.Equal("Customer Note Second", readedNote2);
         }
 
@@ -96,111 +49,39 @@ namespace CustomerLib.Test.Repositories
         public void ShouldBeAbleToUpdateNotes()
         {
             var noteRepository = new NoteRepository();
-            var customerRepository = new CustomerRepository();
+            var fixture = new RepositoriesFixture();
+            var customer = fixture.CreateMockCustomer();
 
-            customerRepository.DeleteAll();
-            customerRepository.Create(new Customer()
-            {
-                FirstName = "Alex",
-                LastName = "Xlea",
-                Addresses = new List<Address>() {
-                        new Address(){
-                        Line1 = "CustomerLine1",
-                        Line2 = "CustomerLine2",
-                        AddressType = Address.EAddressType.Shipping,
-                        City = "Denver",
-                        PostalCode = "121212",
-                        State = "State",
-                        Country = "Canada" }
-                    },
-                Notes = new List<string>() {
-                        "Customer Note First",
-                        "Customer Note Second"
-                    },
-                Phone = "+36098983443",
-                Email = "myname@gmail.com",
-                TotalPurchasesAmount = (decimal?)1234.3
-            });
-
-            Assert.Equal("Customer Note First", noteRepository.Read(1, 1));
+            Assert.Equal(customer.Notes[0], noteRepository.Read(1, 1));
             
             var note = "Updated Customer Note First";
-            noteRepository.Update(note, 1, 2);
-            var updatedNote = noteRepository.Read(1, 2);
+            noteRepository.Update(note, 1, 1);
+            var updatedNote = noteRepository.Read(1, 1);
             Assert.Equal(note, updatedNote);
         }
 
         [Fact]
         public void ShouldBeAbleToDeleteNote()
         {
-            int noteId = 1, customerId = 1;
             var noteRepository = new NoteRepository();
-            var customerRepository = new CustomerRepository();
+            var fixture = new RepositoriesFixture();
+            var customer = fixture.CreateMockCustomer();
 
-            customerRepository.DeleteAll();
-            customerRepository.Create(new Customer()
-            {
-                FirstName = "Alex",
-                LastName = "Xlea",
-                Addresses = new List<Address>() {
-                        new Address(){
-                        Line1 = "CustomerLine1",
-                        Line2 = "CustomerLine2",
-                        AddressType = Address.EAddressType.Shipping,
-                        City = "Denver",
-                        PostalCode = "121212",
-                        State = "State",
-                        Country = "Canada" }
-                    },
-                Notes = new List<string>() {
-                        "Customer Note First",
-                        "Customer Note Second"
-                    },
-                Phone = "+36098983443",
-                Email = "myname@gmail.com",
-                TotalPurchasesAmount = (decimal?)1234.3
-            });
-
-
-            noteRepository.Delete(customerId, noteId);
-            Assert.Null(noteRepository.Read(customerId, noteId));
-            Assert.NotNull(noteRepository.Read(customerId, noteId+1));
+            
+            noteRepository.Delete(1, 1);
+            Assert.Null(noteRepository.Read(1, 1));
         }
 
         [Fact]
         public void ShouldBeAbleToReadAllNotes()
         {
             var noteRepository = new NoteRepository();
-            var customerRepository = new CustomerRepository();
-
-            customerRepository.DeleteAll();
-            customerRepository.Create(new Customer()
-            {
-                FirstName = "Alex",
-                LastName = "Xlea",
-                Addresses = new List<Address>() {
-                        new Address(){
-                        Line1 = "CustomerLine1",
-                        Line2 = "CustomerLine2",
-                        AddressType = Address.EAddressType.Shipping,
-                        City = "Denver",
-                        PostalCode = "121212",
-                        State = "State",
-                        Country = "Canada" }
-                    },
-                Notes = new List<string>() {
-                        "Customer Note First",
-                        "Customer Note Second"
-                    },
-                Phone = "+36098983443",
-                Email = "myname@gmail.com",
-                TotalPurchasesAmount = (decimal?)1234.3
-            });
+            var fixture = new RepositoriesFixture();
+            var customer = fixture.CreateMockCustomer();
 
             List<string> readedNotes = noteRepository.ReadAllNotes(1);
 
-            Assert.Equal("Customer Note First", readedNotes[0]);
-            Assert.Equal("Customer Note Second", readedNotes[1]);
+            Assert.Equal(customer.Notes[0], readedNotes[0]);
         }
     }
 }

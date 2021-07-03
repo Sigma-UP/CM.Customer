@@ -17,213 +17,99 @@ namespace CustomerLib.Test.Repositories
         [Fact]
         public void ShouldBeAbleToCreateAddress()
         {
-            var addressRepository = new AddressRepository(); 
-            var customerRepository = new CustomerRepository();
+            var addressRepository = new AddressRepository();
+            var fixture = new RepositoriesFixture();
+
+            var customer = fixture.CreateMockCustomer();
             
-            customerRepository.DeleteAll();
-            customerRepository.Create(new Customer()
-                {
-                    FirstName = "Alex",
-                    LastName = "Xlea",
-                    Addresses = new List<Address>() {
-                        new Address(){
-                        Line1 = "CustomerLine1",
-                        Line2 = "CustomerLine2",
-                        AddressType = Address.EAddressType.Shipping,
-                        City = "Denver",
-                        PostalCode = "121212",
-                        State = "State",
-                        Country = "Canada" } 
-                    },
-                    Notes = new List<string>() { 
-                        "Customer Note" 
-                    },
-                    Phone = "+36098983443",
-                    Email = "myname@gmail.com",
-                    TotalPurchasesAmount = (decimal?)1234.3
-                });
-
-
-            var address = new Address("Line1 from Repo", 0, "Denver", "213223", "Gloria", "United States", "Line2 from Repo");
-            addressRepository.Create(address, 1);
-
-            var createdAddress = addressRepository.Read(1, 2);
-            Assert.NotNull(createdAddress);
-
-            Assert.Equal(address.Line1, createdAddress.Line1);
-            Assert.Equal(address.Line2, createdAddress.Line2);
-            Assert.Equal(address.AddressType, createdAddress.AddressType);
-            Assert.Equal(address.City, createdAddress.City);
-            Assert.Equal(address.PostalCode, createdAddress.PostalCode);
-            Assert.Equal(address.State, createdAddress.State);
-            Assert.Equal(address.Country, createdAddress.Country);
-
+            var createdAddress = addressRepository.Read(1, 1);
+            
+            fixture.EqualAddresses(customer.Addresses[0], createdAddress);
         }
 
         [Fact]
         public void ShouldBeAbleToReadAddress()
         {
             var addressRepository = new AddressRepository();
-            var customerRepository = new CustomerRepository();
+            var fixture = new RepositoriesFixture();
 
-            customerRepository.DeleteAll();
-            customerRepository.Create(new Customer()
-            {
-                FirstName = "Alex",
-                LastName = "Xlea",
-                Addresses = new List<Address>() {
-                        new Address(){
-                        Line1 = "CustomerLine1",
-                        Line2 = "CustomerLine2",
-                        AddressType = Address.EAddressType.Shipping,
-                        City = "Denver",
-                        PostalCode = "121212",
-                        State = "State",
-                        Country = "Canada" }
-                    },
-                Notes = new List<string>() {
-                        "Customer Note"
-                    },
-                Phone = "+36098983443",
-                Email = "myname@gmail.com",
-                TotalPurchasesAmount = (decimal?)1234.3
-            });
+            var customer = fixture.CreateMockCustomer();
 
-
-            var address = new Address("Line1 from Repo 2", 0, "Denver", "213223", "Gloria", "United States", "Line2 from Repo 2");
-            addressRepository.Create(address, 1);
-
-            var createdAddress = addressRepository.Read(1, 2);
-            Assert.NotNull(createdAddress);
-            
-            Assert.Equal(address.Line1, createdAddress.Line1);
-            Assert.Equal(address.Line2, createdAddress.Line2);
-            Assert.Equal(address.AddressType, createdAddress.AddressType);
-            Assert.Equal(address.City, createdAddress.City);
-            Assert.Equal(address.PostalCode, createdAddress.PostalCode);
-            Assert.Equal(address.State, createdAddress.State);
-            Assert.Equal(address.Country, createdAddress.Country);
-            
+            var createdAddress = addressRepository.Read(1, 1);
+            fixture.EqualAddresses(customer.Addresses[0], createdAddress);
         }
 
         [Fact]
         public void ShouldBeAbleToUpdateAddress()
         {
             var addressRepository = new AddressRepository();
-            var customerRepository = new CustomerRepository();
-            var address = new Address("UPDATED LINE1", 0, "Denver", "213223", "Gloria", "United States", "Line2 from Repo");
+            var fixture = new RepositoriesFixture();
 
+            var customer = fixture.CreateMockCustomer();
 
-            customerRepository.DeleteAll();
-            customerRepository.Create(new Customer()
-            {
-                FirstName = "Alex",
-                LastName = "Xlea",
-                Addresses = new List<Address>() {
-                    address
-                    },
-                Notes = new List<string>() {
-                        "Customer Note"
-                    },
-                Phone = "+36098983443",
-                Email = "myname@gmail.com",
-                TotalPurchasesAmount = (decimal?)1234.3
-            });
+            var createdAddress = addressRepository.Read(1, 1);
+            fixture.EqualAddresses(customer.Addresses[0], createdAddress);
             
+            var newAddress = new Address
+            {
+                Line1 = "Updated L1",
+                Line2 = "Updated L2",
+                AddressType = Address.EAddressType.Biling,
+                City = "UPD",
+                State = "Ilinois",
+                PostalCode = "122332",
+                Country = "United States"
+            };
+            addressRepository.Update(newAddress, 1, 1);
 
-            addressRepository.Update(address, 1, 1);
             var updatedAddress = addressRepository.Read(1, 1);
             Assert.NotNull(updatedAddress);
 
-            Assert.Equal(address.Line1, updatedAddress.Line1);
-            Assert.Equal(address.Line2, updatedAddress.Line2);
-            Assert.Equal(address.AddressType, updatedAddress.AddressType);
-            Assert.Equal(address.City, updatedAddress.City);
-            Assert.Equal(address.PostalCode, updatedAddress.PostalCode);
-            Assert.Equal(address.State, updatedAddress.State);
-            Assert.Equal(address.Country, updatedAddress.Country);
+            fixture.EqualAddresses(newAddress, updatedAddress);
         }
 
         [Fact]
         public void ShouldBeAbleToDeleteAddress()
         {
             var addressRepository = new AddressRepository();
-            var customerRepository = new CustomerRepository();
-            int addressId = 1, customerId = 1;
+            var fixture = new RepositoriesFixture();
 
+            var customer = fixture.CreateMockCustomer();
 
-            customerRepository.DeleteAll();
-            customerRepository.Create(new Customer()
-            {
-                FirstName = "Alex",
-                LastName = "Xlea",
-                Addresses = new List<Address>() {
-                    new Address(){
-                        Line1 = "CustomerLine1",
-                        Line2 = "CustomerLine2",
-                        AddressType = Address.EAddressType.Shipping,
-                        City = "Denver",
-                        PostalCode = "121212",
-                        State = "State",
-                        Country = "Canada" }
-                    },
-                Notes = new List<string>() {
-                        "Customer Note"
-                    },
-                Phone = "+36098983443",
-                Email = "myname@gmail.com",
-                TotalPurchasesAmount = (decimal?)1234.3
-            });
-
-            var address = new Address("Line1 from Repo", 0, "Denver", "213223", "Gloria", "United States", "Line2 from Repo");
-            addressRepository.Create(address, customerId);
-
-            addressRepository.Delete(customerId, addressId);
-            Assert.Null(addressRepository.Read(customerId, addressId));
+            addressRepository.Delete(1, 1);
+            Assert.Null(addressRepository.Read(1, 1));
         }
     
         [Fact]
         public void ShouldBeAbleToReadAllAddresses()
         {
             var addressRepository = new AddressRepository();
-            var customerRepository = new CustomerRepository();
-            customerRepository.DeleteAll();
-            customerRepository.Create(new Customer()
-            {
-                FirstName = "Alex",
-                LastName = "Xlea",
-                Addresses = new List<Address>() {
-                    new Address(){
-                        Line1 = "CustomerLine1",
-                        Line2 = "CustomerLine2",
-                        AddressType = Address.EAddressType.Shipping,
-                        City = "Denver",
-                        PostalCode = "121212",
-                        State = "State",
-                        Country = "Canada" },
-                    new Address(){
-                        Line1 = "CustomerLine12",
-                        Line2 = "CustomerLine22",
-                        AddressType = Address.EAddressType.Shipping,
-                        City = "Denver",
-                        PostalCode = "121212",
-                        State = "SecondState",
-                        Country = "Canada" }
-                    },
-                Notes = new List<string>() {
-                        "Customer Note"
-                    },
-                Phone = "+36098983443",
-                Email = "myname@gmail.com",
-                TotalPurchasesAmount = (decimal?)1234.3
-            });
+            var fixture = new RepositoriesFixture();
 
-            List<Address> readedAddresses = addressRepository.ReadAllAddresses(1);
-            
-            Assert.Equal("CustomerLine1", readedAddresses[0].Line1);
-            Assert.Equal("State", readedAddresses[0].State);
-            Assert.Equal("CustomerLine12", readedAddresses[1].Line1);
-            Assert.Equal("SecondState", readedAddresses[1].State);
+            var customer = fixture.CreateMockCustomer();
+            var manualCreatedAddress = new Address
+            {
+                Line1 = "Line1, second Address",
+                Line2 = "Line1, second Address",
+                City = "Denver",
+                State = "Ilinois",
+                PostalCode = "123212",
+                Country = "United States",
+                AddressType = Address.EAddressType.Biling
+            };
+
+            var readedAddress = addressRepository.Read(1, 1);
+            fixture.CreateMockAddress();
+            addressRepository.Create(manualCreatedAddress, 1);
+
+            Assert.NotNull(addressRepository.Read(1, 1));
+            Assert.NotNull(addressRepository.Read(1, 2));
+            Assert.NotNull(addressRepository.Read(1, 3));
+
+            customer.Addresses = addressRepository.ReadAllAddresses(1);
+            fixture.EqualAddresses(customer.Addresses[0], readedAddress);
+            fixture.EqualAddresses(customer.Addresses[1], readedAddress);
+            fixture.EqualAddresses(customer.Addresses[2], manualCreatedAddress);
         }
     }
 }
