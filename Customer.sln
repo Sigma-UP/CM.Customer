@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Changes.txt = Changes.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerLib.IntegrationTests", "CustomerLib.IntegrationTests\CustomerLib.IntegrationTests.csproj", "{2C40EDE9-A6C3-4503-BA3B-A104801B8EBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{2DE898F6-0088-440E-8C28-2283ADFAEA2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DE898F6-0088-440E-8C28-2283ADFAEA2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DE898F6-0088-440E-8C28-2283ADFAEA2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C40EDE9-A6C3-4503-BA3B-A104801B8EBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C40EDE9-A6C3-4503-BA3B-A104801B8EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C40EDE9-A6C3-4503-BA3B-A104801B8EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C40EDE9-A6C3-4503-BA3B-A104801B8EBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

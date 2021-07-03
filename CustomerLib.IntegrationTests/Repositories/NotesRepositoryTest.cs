@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using CustomerLib.Repositories;
-namespace CustomerLib.Test.Repositories
+namespace CustomerLib.IntegrationTests.Repositories
 {
     public class NotesRepositoryTest
     {

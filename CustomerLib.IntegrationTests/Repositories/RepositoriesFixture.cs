@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CustomerLib.Repositories;
 using Xunit;
 
-namespace CustomerLib.Test.Repositories
+namespace CustomerLib.IntegrationTests.Repositories
 {
     public class RepositoriesFixture
     {
