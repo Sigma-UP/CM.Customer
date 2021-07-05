@@ -1,17 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
+
 namespace CustomerLib.Repositories
 {
     [ExcludeFromCodeCoverage]
-    public class NoteRepository
+    public class NoteRepository : BaseRepository
     {
         public void Create(string note, int customerIdx)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -41,11 +39,7 @@ namespace CustomerLib.Repositories
 
         public void Update(string note, int customerIdx, int noteIdx)
         {
-
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -67,10 +61,7 @@ namespace CustomerLib.Repositories
 
         public void Delete(int customerId, int noteId)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -101,10 +92,7 @@ namespace CustomerLib.Repositories
 
         public string Read(int customerId, int noteId)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -142,10 +130,7 @@ namespace CustomerLib.Repositories
         
         public List<string> ReadAllNotes(int customerId)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -179,10 +164,7 @@ namespace CustomerLib.Repositories
 
         public void DeleteAll(int customerId)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 

@@ -4,14 +4,11 @@ using System.Collections.Generic;
 namespace CustomerLib.Repositories
 {
     [ExcludeFromCodeCoverage]
-    public class AddressRepository
+    public class AddressRepository : BaseRepository
     {
         public void Create(Address address, int customerIdx)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -77,12 +74,7 @@ namespace CustomerLib.Repositories
 
         public void Update(Address address, int customerIdx, int addressIdx)
         {
-
-            //address`s fields will overwrite data by indexes
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -162,10 +154,7 @@ namespace CustomerLib.Repositories
 
         public void Delete(int customerId, int addressId)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -196,10 +185,7 @@ namespace CustomerLib.Repositories
 
         public Address Read(int customerId, int addressId)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -248,10 +234,7 @@ namespace CustomerLib.Repositories
 
         public List<Address> ReadAllAddresses(int customerId)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -296,10 +279,7 @@ namespace CustomerLib.Repositories
 
         public void DeleteAll()
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 

@@ -5,14 +5,11 @@ using System.Data.SqlClient;
 namespace CustomerLib.Repositories
 {
     [ExcludeFromCodeCoverage]
-    public class CustomerRepository
+    public class CustomerRepository : BaseRepository
     {
         public static int GetCustomerIndex(Customer customer)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -44,10 +41,7 @@ namespace CustomerLib.Repositories
 
         public void Create(Customer customer)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -105,10 +99,7 @@ namespace CustomerLib.Repositories
 
         public Customer Read(int customerID)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -151,10 +142,7 @@ namespace CustomerLib.Repositories
 
         public void Update(Customer customer, int customerIdx)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -211,10 +199,7 @@ namespace CustomerLib.Repositories
 
         public void Delete(int customerId)
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
@@ -238,10 +223,7 @@ namespace CustomerLib.Repositories
 
         public void DeleteAll()
         {
-            using (var connection = new SqlConnection(
-                "Server=ALFA;" +
-                "Database=CustomerLib_Bezslyozniy;" +
-                "Trusted_Connection=True;"))
+            using (var connection = GetConnection())
             {
                 connection.Open();
 
