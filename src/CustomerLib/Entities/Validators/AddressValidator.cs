@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using CustomerLib;
 
 namespace CustomerLib.Entities.Validators
 {

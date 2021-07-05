@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using CustomerLib.Repositories;
+using CustomerLib.Data.Repositories;
 
 namespace CustomerLib.IntegrationTests.Repositories
 {

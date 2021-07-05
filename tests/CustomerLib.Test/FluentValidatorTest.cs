@@ -1,5 +1,6 @@
 using Xunit;
 using System.Collections.Generic;
+using CustomerLib.Entities;
 using CustomerLib.Entities.Validators;
 using FluentValidation.TestHelper;
 

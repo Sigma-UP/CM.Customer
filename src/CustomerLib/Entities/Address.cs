@@ -1,7 +1,6 @@
-﻿using StringExtension;
-using System.Collections.Generic;
+﻿using CustomerLib.Extensions;
 
-namespace CustomerLib
+namespace CustomerLib.Entities
 {
 	public class Address
 	{
@@ -16,19 +15,6 @@ namespace CustomerLib
 		public Address()
 		{
 		}
-
-
-		public Address(string line1, int addressType, string city, string postalCode, string state, string country, string line2 = "")
-		{
-			Line1 = line1;
-			Line2 = line2;
-			AddressType = (EAddressType)addressType;
-			City = city;
-			PostalCode = postalCode;
-			State = state;
-			Country = country;
-		}
-
 		public string Line1 { 
 			get => _line1;
 			set 
@@ -73,7 +59,7 @@ namespace CustomerLib
 			get => _city;
 			set
 			{
-				if (value != null && value.Length <= 50 && !value.IsEmpty() && !value.ContainsNumbers())
+				if (value != null && value.Length <= 50 && !value.IsEmpty() && !value.ContainsNumber())
 					_city = value;
 				else
 					_city = null;
@@ -84,7 +70,7 @@ namespace CustomerLib
 			get => _postalCode;
 			set
 			{
-				if (value != null && value.Length <= 6 && value.ContainsNumbers())
+				if (value != null && value.Length <= 6 && value.ContainsNumber())
 					_postalCode = value;
 				else
 					_postalCode = null;
@@ -95,13 +81,12 @@ namespace CustomerLib
 			get => _state;
 			set
 			{
-				if (value != null && value.Length <= 20 && !value.IsEmpty() && !value.ContainsNumbers())
+				if (value != null && value.Length <= 20 && !value.IsEmpty() && !value.ContainsNumber())
 					_state = value;
 				else
 					_state = null;
 			}
 		}
-
 		public string Country
 		{
 			get => _country;
@@ -114,33 +99,12 @@ namespace CustomerLib
 					_country = null;
 			}
 		}
-
 		public string GetAddressTypeAsString() =>
 			AddressType == 0 ? "Shipping" : "Billing";
- 
-
-		/*
-		public List<string> AddressValidator()
-		{
-			//try something to use cycles
-			List<string> errors = new List<string>();
-
-
-			if (Line1 == null)		errors.Add("Line1");
-			if (City == null)		errors.Add("City");
-			if (PostalCode == null) errors.Add("PostalCode");
-			if (State == null)		errors.Add("State");
-			if (Country == null)	errors.Add("Country");
-			
-			if(errors.Count==0)	return null;
-			return errors;
-		}
-		*/
 		public enum EAddressType
 		{
 			Shipping,
 			Biling
 		}
-
 	}
 }

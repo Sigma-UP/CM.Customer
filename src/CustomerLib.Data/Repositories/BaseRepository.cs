@@ -1,8 +1,8 @@
 ﻿using System.Data.SqlClient;
-using System.Data.Common;
-using System.Collections.Generic;
-namespace CustomerLib.Repositories
+using System.Diagnostics.CodeAnalysis;
+namespace CustomerLib.Data.Repositories
 {
+    [ExcludeFromCodeCoverage]
     public abstract class BaseRepository
     {
         public static SqlConnection GetConnection()

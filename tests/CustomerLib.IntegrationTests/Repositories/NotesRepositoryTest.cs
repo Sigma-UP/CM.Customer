@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Xunit;
-using CustomerLib.Repositories;
+using CustomerLib.Data.Repositories;
 namespace CustomerLib.IntegrationTests.Repositories
 {
     public class NotesRepositoryTest

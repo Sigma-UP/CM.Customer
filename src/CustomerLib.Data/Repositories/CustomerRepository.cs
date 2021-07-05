@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Data.SqlClient;
+using CustomerLib.Entities;
 
-namespace CustomerLib.Repositories
+namespace CustomerLib.Data.Repositories
 {
     [ExcludeFromCodeCoverage]
     public class CustomerRepository : BaseRepository

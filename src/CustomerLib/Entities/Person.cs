@@ -1,4 +1,4 @@
-﻿namespace CustomerLib
+﻿namespace CustomerLib.Entities
 {
 	public abstract class Person
 	{

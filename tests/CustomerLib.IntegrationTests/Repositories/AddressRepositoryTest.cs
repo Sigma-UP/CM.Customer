@@ -1,5 +1,7 @@
-﻿using Xunit;
-using CustomerLib.Repositories;
+﻿using CustomerLib.Data.Repositories;
+using CustomerLib.Entities;
+using Xunit;
+
 namespace CustomerLib.IntegrationTests.Repositories
 {
     public class AddressRepositoryTest

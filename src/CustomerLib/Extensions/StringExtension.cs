@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StringExtension
+namespace CustomerLib.Extensions
 {
 	public static class StringExtension
 	{
@@ -21,7 +21,7 @@ namespace StringExtension
 					return false;
 			return true;
         }
-		public static bool ContainsNumbers(this string str)
+		public static bool ContainsNumber(this string str)
         {
 			for (int i = 0; i < str.Length; i++)
 				if (Char.IsNumber(str[i]))

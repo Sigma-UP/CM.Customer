@@ -1,7 +1,9 @@
 ﻿using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
-namespace CustomerLib.Repositories
+using CustomerLib.Entities;
+
+namespace CustomerLib.Data.Repositories
 {
     [ExcludeFromCodeCoverage]
     public class AddressRepository : BaseRepository

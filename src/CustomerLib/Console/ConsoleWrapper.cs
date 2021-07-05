@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CustomerLib
 {
@@ -10,7 +9,7 @@ namespace CustomerLib
         void WriteLine(string str);
         void Write(string str);
     }
-
+    [ExcludeFromCodeCoverage]
     public class ConsoleWrapper : IConsoleWrapper
     {
         public string ReadLine()

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CustomerLib.Repositories;
+﻿using CustomerLib.Data.Repositories;
 using Xunit;
 namespace CustomerLib.IntegrationTests.Repositories
 {

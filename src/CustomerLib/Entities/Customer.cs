@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using StringExtension;
+using CustomerLib.Extensions;
 using System.Text.RegularExpressions;
 
-namespace CustomerLib
+namespace CustomerLib.Entities
 {
 	public class Customer : Person
 	{
@@ -35,7 +35,7 @@ namespace CustomerLib
 			get { return _name; }
 			set 
 			{
-				if (value != null && value.Length <= 50 && !value.ContainsNumbers() && !value.IsEmpty())
+				if (value != null && value.Length <= 50 && !value.ContainsNumber() && !value.IsEmpty())
 					_name = value;
 				else
 					_name = null;
@@ -46,7 +46,7 @@ namespace CustomerLib
 			get { return _lastName; } 
 			set 
 			{
-				if (value != null && value.Length <= 50 && !value.ContainsNumbers() && !value.IsEmpty())
+				if (value != null && value.Length <= 50 && !value.ContainsNumber() && !value.IsEmpty())
 					_lastName = value;
 				else
 					_lastName = null;

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using CustomerLib.Repositories;
+﻿using System.Collections.Generic;
+using CustomerLib.Entities;
+using CustomerLib.Data.Repositories;
 using Xunit;
 using System.Diagnostics.CodeAnalysis;
 namespace CustomerLib.IntegrationTests.Repositories

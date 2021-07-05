@@ -1,5 +1,6 @@
-﻿using Xunit;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Xunit;
+using CustomerLib.Entities;
 
 namespace CustomerLib.Test.Entities
 {
@@ -143,7 +144,15 @@ namespace CustomerLib.Test.Entities
         [Fact]
         public void NewAddressShouldSaveCorrectData()
         {
-            Address address = new Address("B.Herrington str.", 1, "Zhma", "121782", "Juna", "United States");
+            Address address = new Address
+            {
+                Line1 = "B.Herrington str.",
+                AddressType = Address.EAddressType.Biling,
+                City = "Zhma",
+                PostalCode = "121782",
+                State = "Juna",
+                Country = "United States"
+            };
             _c.Addresses = new List<Address>();
             _c.Addresses.Add(address);
             Assert.Equal("B.Herrington str.", _c.Addresses[0].Line1);

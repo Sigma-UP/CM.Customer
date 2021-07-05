@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 namespace CustomerLib.Entities.Validators
 {
-    public class CustomerValidator : AbstractValidator<CustomerLib.Customer>
+    public class CustomerValidator : AbstractValidator<Customer>
     {
         public CustomerValidator()
         {

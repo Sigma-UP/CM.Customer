@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CustomerLib.Repositories
+namespace CustomerLib.Data.Repositories
 {
     [ExcludeFromCodeCoverage]
     public class NoteRepository : BaseRepository

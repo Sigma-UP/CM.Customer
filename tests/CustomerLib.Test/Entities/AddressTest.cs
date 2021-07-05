@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using CustomerLib.Entities;
+using Xunit;
 namespace CustomerLib.Test.Entities
 {
     public class AddressTest
@@ -172,7 +173,14 @@ namespace CustomerLib.Test.Entities
         [Fact]
         public void AddressConstructorShouldSaveCorrectly()
         {
-            Address a = new Address("LINE1", 1, "CITY", "212121", "STATE", "Canada");
+            Address a = new Address(){
+                Line1 = "LINE1", 
+                AddressType = Address.EAddressType.Biling,
+                City = "CITY",
+                PostalCode = "212121",
+                State = "STATE",
+                Country = "Canada" 
+            };
             Assert.Equal("LINE1", a.Line1);
             Assert.Equal(Address.EAddressType.Biling, a.AddressType);
             Assert.Equal("CITY", a.City);
