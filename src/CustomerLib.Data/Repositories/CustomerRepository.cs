@@ -141,7 +141,7 @@ namespace CustomerLib.Data.Repositories
             return null;
         }
 
-        public void Update(Customer customer, int customerIdx)
+        public void Update(Customer customer)
         {
             using (var connection = GetConnection())
             {
@@ -185,7 +185,7 @@ namespace CustomerLib.Data.Repositories
 
                 var customerCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
-                    Value = customerIdx
+                    Value = customer.CustomerID
                 };
 
                 command.Parameters.Add(customerFirstNameParam);

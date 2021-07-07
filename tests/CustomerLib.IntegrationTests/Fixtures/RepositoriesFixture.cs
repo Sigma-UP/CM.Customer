@@ -32,6 +32,7 @@ namespace CustomerLib.IntegrationTests.Fixtures
         #region Mock Repos
         public Customer MockCustomer() => new Customer()
         {
+            CustomerID = 1,
             FirstName = "Alex",
             LastName = "Xlea",
             Addresses = new List<Address>() {
@@ -50,7 +51,7 @@ namespace CustomerLib.IntegrationTests.Fixtures
             AddressID = 1,
             Line1 = "CustomerLine1",
             Line2 = "CustomerLine2",
-            AddressType =Address.EAddressType.Shipping,
+            AddressType = Address.EAddressType.Shipping,
             City = "Denver",
             PostalCode = "121212",
             State = "State",
@@ -74,7 +75,7 @@ namespace CustomerLib.IntegrationTests.Fixtures
             Assert.Equal(expectedCustomer.Email, actualCustomer.Email);
             Assert.Equal(expectedCustomer.TotalPurchasesAmount, actualCustomer.TotalPurchasesAmount);
 
-            for(int i = 0; i < expectedCustomer.Addresses.Count; i++)
+            for (int i = 0; i < expectedCustomer.Addresses.Count; i++)
                 EqualAddresses(expectedCustomer.Addresses[i], actualCustomer.Addresses[i]);
 
             for (int i = 0; i < expectedCustomer.Notes.Count; i++)

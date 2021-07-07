@@ -43,7 +43,7 @@ namespace CustomerLib.IntegrationTests.Repositories
             var customer = fixture.CreateMockCustomer();
 
             customer.FirstName = "Mikhail";
-            customerRepository.Update(customer, 1);
+            customerRepository.Update(customer);
             
             var readedCustomer = customerRepository.Read(1);
             fixture.EqualCustomers(customer, readedCustomer);
