@@ -1,9 +1,17 @@
 ﻿using CustomerLib.Extensions;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace CustomerLib.Entities
 {
+	[Serializable]
 	public class Address
 	{
+		[Key, Column(Order = 0)]
+		private int _addressID;
+		[Key, Column(Order = 1)]
+		private int _customerID;
 		private string _line1;
 		private string _line2;
 		private EAddressType _addressType;
@@ -14,6 +22,17 @@ namespace CustomerLib.Entities
 
 		public Address()
 		{
+		}
+		#region Getters and Setters.
+		public int CustomerID
+		{
+			get => _customerID; 
+			set => _customerID = value; 
+		}
+		public int AddressID 
+		{ 
+			get => _addressID; 
+			set => _addressID = value; 
 		}
 		public string Line1 { 
 			get => _line1;
@@ -99,7 +118,9 @@ namespace CustomerLib.Entities
 					_country = null;
 			}
 		}
-		public string GetAddressTypeAsString() =>
+        #endregion
+
+        public string GetAddressTypeAsString() =>
 			AddressType == 0 ? "Shipping" : "Billing";
 		public enum EAddressType
 		{

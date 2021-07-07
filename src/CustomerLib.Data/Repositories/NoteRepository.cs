@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
+using CustomerLib.Entities;
+using System;
 
 namespace CustomerLib.Data.Repositories
 {
     [ExcludeFromCodeCoverage]
     public class NoteRepository : BaseRepository
     {
-        public void Create(string note, int customerIdx)
+        public void Create(Note note)
         {
             using (var connection = GetConnection())
             {
@@ -16,18 +18,18 @@ namespace CustomerLib.Data.Repositories
                 SqlCommand command = new SqlCommand(
                     "INSERT " +
                     "INTO [dbo].[Notes] " +
-                    "( CustomerID, Note ) " +
+                    "( CustomerID, Line ) " +
                     "VALUES " +
-                    "( @CustomerID, @Note )", 
+                    "( @CustomerID, @Line )", 
                     connection);
                 var noteCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
-                    Value = customerIdx
+                    Value = note.CustomerID
                 };
 
-                var noteNoteParam = new SqlParameter("@Note", System.Data.SqlDbType.VarChar, 500)
+                var noteNoteParam = new SqlParameter("@Line", System.Data.SqlDbType.VarChar, 500)
                 {
-                    Value = note
+                    Value = note.Line
                 };
 
                 command.Parameters.Add(noteCustomerIDParam);
@@ -37,7 +39,7 @@ namespace CustomerLib.Data.Repositories
             }
         }
 
-        public void Update(string note, int customerIdx, int noteIdx)
+        public void Update(Note note)
         {
             using (var connection = GetConnection())
             {
@@ -46,14 +48,27 @@ namespace CustomerLib.Data.Repositories
                 SqlCommand command = new SqlCommand(
                     "UPDATE [dbo].[Notes] " +
                     "SET " +
-                    "[dbo].[Notes].[Note] = @Note", 
+                    "[dbo].[Notes].[Line] = @Line " +
+                    "WHERE " +
+                    "[dbo].[Notes].[NoteID] = @NoteID AND " +
+                    "[dbo].[Notes].[CustomerID] = @CustomerID", 
                     connection);
-                var noteNoteParam = new SqlParameter("@Note", System.Data.SqlDbType.VarChar, 500)
+                var noteLineParam = new SqlParameter("@Line", System.Data.SqlDbType.VarChar, 500)
                 {
-                    Value = note
+                    Value = note.Line
+                };
+                var noteCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
+                {
+                    Value = note.CustomerID
+                };
+                var noteNoteIDParam = new SqlParameter("@NoteID", System.Data.SqlDbType.Int)
+                {
+                    Value = note.NoteID
                 };
 
-                command.Parameters.Add(noteNoteParam);
+                command.Parameters.Add(noteLineParam);
+                command.Parameters.Add(noteCustomerIDParam);
+                command.Parameters.Add(noteNoteIDParam);
                 
                 command.ExecuteNonQuery();
             }
@@ -90,7 +105,7 @@ namespace CustomerLib.Data.Repositories
             }
         }
 
-        public string Read(int customerId, int noteId)
+        public Note Read(int customerId, int noteId)
         {
             using (var connection = GetConnection())
             {
@@ -119,7 +134,12 @@ namespace CustomerLib.Data.Repositories
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
-                        return reader["Note"]?.ToString();
+                        return new Note
+                        {
+                            CustomerID = Convert.ToInt32(reader["CustomerID"]),
+                            NoteID = Convert.ToInt32(reader["NoteID"]),
+                            Line = reader["Line"]?.ToString() 
+                        };
                 }
 
                 command.ExecuteNonQuery();
@@ -128,14 +148,16 @@ namespace CustomerLib.Data.Repositories
             return null;
         }
         
-        public List<string> ReadAllNotes(int customerId)
+        public List<Note> ReadAllNotes(int customerId)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
 
                 var command = new SqlCommand(
-                    "SELECT [dbo].[Notes].[Note] " +
+                    "SELECT [dbo].[Notes].[CustomerID], " +
+                    "[dbo].[Notes].[NoteID], " +
+                    "[dbo].[Notes].[Line] " +
                     "FROM [dbo].[Notes] " +
                     "WHERE " +
                     "[dbo].[Notes].[CustomerID] = @CustomerID", 
@@ -148,12 +170,16 @@ namespace CustomerLib.Data.Repositories
 
                 command.Parameters.Add(notesCustomerIDParam);
 
-                List<string> readedNotes = new List<string>();
+                List<Note> readedNotes = new List<Note>();
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        readedNotes.Add(reader["Note"]?.ToString());
+                        readedNotes.Add(new Note{
+                            CustomerID = Convert.ToInt32(reader["CustomerID"]),
+                            NoteID = Convert.ToInt32(reader["NoteID"]),
+                            Line = reader["Line"]?.ToString()
+                        });
                     }
                 }
 

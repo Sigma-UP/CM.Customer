@@ -23,7 +23,7 @@ namespace CustomerLib.Data.Repositories
 
                 var customerPhoneParam = new SqlParameter("@PhoneNumber", System.Data.SqlDbType.VarChar, 15)
                 {
-                    Value = customer.Phone
+                    Value = customer.PhoneNumber
                 };
 
                 command.Parameters.Add(customerPhoneParam);
@@ -65,7 +65,7 @@ namespace CustomerLib.Data.Repositories
 
                 var customerPhoneParam = new SqlParameter("@PhoneNumber", System.Data.SqlDbType.VarChar, 15)
                 {
-                    Value = customer.Phone
+                    Value = customer.PhoneNumber
                 };
 
                 var customerEmailParam = new SqlParameter("@Email", System.Data.SqlDbType.VarChar, 320)
@@ -91,9 +91,9 @@ namespace CustomerLib.Data.Repositories
                 NoteRepository noteRepository = new NoteRepository();
 
                 foreach (Address address in customer.Addresses)
-                    addressRepository.Create(address, customerIndex);
-                foreach (string note in customer.Notes)
-                    noteRepository.Create(note, customerIndex);
+                    addressRepository.Create(address);
+                foreach (Note note in customer.Notes)
+                    noteRepository.Create(note);
 
             }
         }
@@ -126,7 +126,7 @@ namespace CustomerLib.Data.Repositories
                         {
                             FirstName = reader["FirstName"]?.ToString(),
                             LastName = reader["LastName"]?.ToString(),
-                            Phone = reader["PhoneNumber"].ToString(),
+                            PhoneNumber = reader["PhoneNumber"].ToString(),
                             Email = reader["Email"]?.ToString(),
                             TotalPurchasesAmount = Convert.ToDecimal(reader["TotalPurchasesAmount"]),
                             Addresses = new AddressRepository().ReadAllAddresses(customerID),
@@ -170,7 +170,7 @@ namespace CustomerLib.Data.Repositories
 
                 var customerPhoneNumberParam = new SqlParameter("@PhoneNumber", System.Data.SqlDbType.VarChar, 15)
                 {
-                    Value = customer.Phone
+                    Value = customer.PhoneNumber
                 };
 
                 var customerEmailParam = new SqlParameter("@Email", System.Data.SqlDbType.VarChar, 320)

@@ -46,7 +46,6 @@ namespace CustomerLib.Test.Entities
             Assert.Equal(new string('A', 50), _c.FirstName);
 
         }
-
         [Fact]
         public void LastNameShouldSaveNullOrCorrectString()
         {
@@ -73,31 +72,29 @@ namespace CustomerLib.Test.Entities
             _c.LastName = null;
             Assert.Null(_c.LastName);
         }
-
         [Fact]
         public void PhoneShouldSaveOnlyE164FormatOrNull()
         {
-            Assert.Null(_c.Phone);
+            Assert.Null(_c.PhoneNumber);
 
-            _c.Phone = "111222333444555";
-            Assert.Null(_c.Phone);
+            _c.PhoneNumber = "111222333444555";
+            Assert.Null(_c.PhoneNumber);
 
-            _c.Phone = "+111-222";
-            Assert.Null(_c.Phone);
+            _c.PhoneNumber = "+111-222";
+            Assert.Null(_c.PhoneNumber);
 
-            _c.Phone = null;
-            Assert.Null(_c.Phone);
+            _c.PhoneNumber = null;
+            Assert.Null(_c.PhoneNumber);
 
-            _c.Phone = "";
-            Assert.Null(_c.Phone);
+            _c.PhoneNumber = "";
+            Assert.Null(_c.PhoneNumber);
 
-            _c.Phone = "+345";
-            Assert.Equal("+345", _c.Phone);
+            _c.PhoneNumber = "+345";
+            Assert.Equal("+345", _c.PhoneNumber);
 
-            _c.Phone = "+111222333444555";
-            Assert.Equal("+111222333444555", _c.Phone);
+            _c.PhoneNumber = "+111222333444555";
+            Assert.Equal("+111222333444555", _c.PhoneNumber);
         }
-
         [Fact]
         public void EmailShouldSaveNullOrCorrectString()
         {
@@ -125,7 +122,6 @@ namespace CustomerLib.Test.Entities
             _c.Email = null;
             Assert.Null(_c.Email);
         }
-
         [Fact]
         public void TotalPurchasesAmountShouldSaveNullOrDecimal()
         {
@@ -162,17 +158,33 @@ namespace CustomerLib.Test.Entities
             _c.Addresses.Add(address);
             Assert.Null(_c.Addresses[1].Line1);
         }
-
         [Fact]
         public void NotesShouldSaveCorrectStringOrNull()
         {
-            List<string> notes = new List<string>();
+            List<Note> notes = new List<Note>();
 
-            notes.Add("Note1");
-            notes.Add("Note2");
-            Customer LocalNew = new Customer();
-            LocalNew.Notes = notes;
-            Assert.Equal(notes, LocalNew.Notes);
+            notes.Add(new Note
+            {
+                CustomerID = 1,
+                NoteID = 1,
+                Line = "Note1"
+            });
+            notes.Add(new Note
+            {
+                CustomerID = 1,
+                NoteID = 2,
+                Line = "Note2"
+            });
+            Customer customer = new Customer();
+            customer.Notes = notes;
+            Assert.Equal(notes, customer.Notes);
         }
+        [Fact]
+        public void ShouldSaveCustomerID()
+        {
+            _c.CustomerID = 1;
+            Assert.Equal(1, _c.CustomerID);
+        }
+
     }
 }

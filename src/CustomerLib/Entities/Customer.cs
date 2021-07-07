@@ -1,18 +1,23 @@
 ﻿using System.Collections.Generic;
 using CustomerLib.Extensions;
 using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace CustomerLib.Entities
 {
+	[Serializable]
 	public class Customer : Person
 	{
+		[Key]
+		private int _customerID;
 		private string _name;
 		private string _lastName;
-		private string _phone;
+		private string _phoneNumber;
 		private string _email;
 		private decimal? _total;
 		
-		private List<string>  _notes = new List<string>();
+		private List<Note>  _notes = new List<Note>();
 		private List<Address> _addresses = new List<Address>();
 
 		#region Constructors.
@@ -30,6 +35,11 @@ namespace CustomerLib.Entities
 		{ }
 		#endregion
         #region Getters and setters.
+		public int CustomerID
+        {
+			get { return _customerID; }
+			set { _customerID = value; }
+        }
         public override string FirstName 
 		{ 
 			get { return _name; }
@@ -52,14 +62,14 @@ namespace CustomerLib.Entities
 					_lastName = null;
 			} 
 		}
-		public string Phone { 
-			get => _phone;
+		public string PhoneNumber { 
+			get => _phoneNumber;
 			set 
 			{
 				if (value.IsE164())
-					_phone = value;
+					_phoneNumber = value;
 				else
-					_phone = null;
+					_phoneNumber = null;
 			}
 		}
 		public string Email {
@@ -108,7 +118,7 @@ namespace CustomerLib.Entities
 			set => _addresses = value;
 		}
 
-		public List<string> Notes 
+		public List<Note> Notes 
 		{ 
 			get => _notes;
 			set 

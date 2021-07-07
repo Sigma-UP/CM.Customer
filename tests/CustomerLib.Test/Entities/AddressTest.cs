@@ -31,7 +31,6 @@ namespace CustomerLib.Test.Entities
             Assert.Null(_address.Line2);
 
         }
-
         [Fact]
         public void AddressTypeShouldSave0Or1()
         {
@@ -48,7 +47,6 @@ namespace CustomerLib.Test.Entities
             _address.AddressType = (Address.EAddressType)2;
             Assert.Equal(Address.EAddressType.Shipping, _address.AddressType);
         }
-
         [Fact]
         public void GetAddressTypeAsStringShouldReturnStringShipping()
         {
@@ -59,8 +57,6 @@ namespace CustomerLib.Test.Entities
             _address.AddressType = (Address.EAddressType)1;
             Assert.Equal("Billing", _address.GetAddressTypeAsString());
         }
-
-
         [Fact]
         public void CityShouldSaveNullOrCorrectString()
         {
@@ -91,7 +87,6 @@ namespace CustomerLib.Test.Entities
             Assert.Null(_address.City);
 
         }
-
         [Fact]
         public void PostalCodeShouldSaveNullOrCorrectString()
         {
@@ -115,7 +110,6 @@ namespace CustomerLib.Test.Entities
             _address.PostalCode = null;
             Assert.Null(_address.PostalCode);
         }
-
         [Fact]
         public void StateShouldSaveNullOrCorrectString()
         {
@@ -145,7 +139,6 @@ namespace CustomerLib.Test.Entities
             _address.State = null;
             Assert.Null(_address.State);
         }
-
         [Fact]
         public void CountryShouldSaveNullOrCorrectString()
         {
@@ -169,7 +162,6 @@ namespace CustomerLib.Test.Entities
             _address.Country = "Canada";
             Assert.Equal("Canada", _address.Country);
         }
-
         [Fact]
         public void AddressConstructorShouldSaveCorrectly()
         {
@@ -188,6 +180,17 @@ namespace CustomerLib.Test.Entities
             Assert.Equal("STATE", a.State);
             Assert.Equal("Canada", a.Country);
         }
+        [Fact]
+        public void ShouldSaveAddressID()
+        {
+            _address.AddressID = 1;
+            Assert.Equal(1, _address.AddressID);
+        }
+        [Fact]
+        public void ShouldSaveCustomerID()
+        {
+            _address.CustomerID = 1;
+            Assert.Equal(1, _address.CustomerID);
+        }
     }
-
 }

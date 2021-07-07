@@ -2,6 +2,8 @@
 using CustomerLib.Entities;
 using Xunit;
 
+using CustomerLib.IntegrationTests.Fixtures;
+
 namespace CustomerLib.IntegrationTests.Repositories
 {
     public class AddressRepositoryTest
@@ -51,6 +53,8 @@ namespace CustomerLib.IntegrationTests.Repositories
             
             var newAddress = new Address
             {
+                CustomerID = 1,
+                AddressID = 1,
                 Line1 = "Updated L1",
                 Line2 = "Updated L2",
                 AddressType = Address.EAddressType.Biling,
@@ -59,7 +63,7 @@ namespace CustomerLib.IntegrationTests.Repositories
                 PostalCode = "122332",
                 Country = "United States"
             };
-            addressRepository.Update(newAddress, 1, 1);
+            addressRepository.Update(newAddress);
 
             var updatedAddress = addressRepository.Read(1, 1);
             Assert.NotNull(updatedAddress);
@@ -86,8 +90,10 @@ namespace CustomerLib.IntegrationTests.Repositories
             var fixture = new RepositoriesFixture();
 
             var customer = fixture.CreateMockCustomer();
+            fixture.CreateMockAddress();
             var manualCreatedAddress = new Address
             {
+                CustomerID = 1,
                 Line1 = "Line1, second Address",
                 Line2 = "Line1, second Address",
                 City = "Denver",
@@ -96,15 +102,14 @@ namespace CustomerLib.IntegrationTests.Repositories
                 Country = "United States",
                 AddressType = Address.EAddressType.Biling
             };
+            addressRepository.Create(manualCreatedAddress);
 
             var readedAddress = addressRepository.Read(1, 1);
-            fixture.CreateMockAddress();
-            addressRepository.Create(manualCreatedAddress, 1);
 
             Assert.NotNull(addressRepository.Read(1, 1));
             Assert.NotNull(addressRepository.Read(1, 2));
             Assert.NotNull(addressRepository.Read(1, 3));
-
+            
             customer.Addresses = addressRepository.ReadAllAddresses(1);
             fixture.EqualAddresses(customer.Addresses[0], readedAddress);
             fixture.EqualAddresses(customer.Addresses[1], readedAddress);

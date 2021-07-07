@@ -2,13 +2,14 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using CustomerLib.Entities;
+using System;
 
 namespace CustomerLib.Data.Repositories
 {
     [ExcludeFromCodeCoverage]
     public class AddressRepository : BaseRepository
     {
-        public void Create(Address address, int customerIdx)
+        public void Create(Address address)
         {
             using (var connection = GetConnection())
             {
@@ -23,7 +24,7 @@ namespace CustomerLib.Data.Repositories
                     connection);
                 var addressCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
-                    Value = customerIdx
+                    Value = address.CustomerID
                 };
 
                 var addressLine1Param = new SqlParameter("@Line1", System.Data.SqlDbType.VarChar, 100)
@@ -74,7 +75,7 @@ namespace CustomerLib.Data.Repositories
             }
         }
 
-        public void Update(Address address, int customerIdx, int addressIdx)
+        public void Update(Address address)
         {
             using (var connection = GetConnection())
             {
@@ -96,12 +97,12 @@ namespace CustomerLib.Data.Repositories
                     connection);
                 var addressCustomerIDParam = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int)
                 {
-                    Value = customerIdx
+                    Value = address.CustomerID
                 };
 
                 var addressAddressIDParam = new SqlParameter("@AddressID", System.Data.SqlDbType.Int)
                 {
-                    Value = addressIdx
+                    Value = address.AddressID
                 };
 
                 var addressLine1Param = new SqlParameter("@Line1", System.Data.SqlDbType.VarChar, 100)
@@ -217,13 +218,15 @@ namespace CustomerLib.Data.Repositories
                     {
                         return new Address()
                         {
+                            CustomerID = Convert.ToInt32(reader["CustomerID"]),
+                            AddressID = Convert.ToInt32(reader["AddressID"]),
                             Line1 = reader["Line1"]?.ToString(),
                             Line2 = reader["Line2"]?.ToString(),
                             AddressType = (Address.EAddressType)(reader["AddressType"].ToString() == "Shipping" ? 0 : 1),
                             City = reader["City"]?.ToString(),
                             PostalCode = reader["PostalCode"]?.ToString(),
                             State = reader["State"]?.ToString(),
-                            Country = reader["Country"]?.ToString(),
+                            Country = reader["Country"]?.ToString()
                         };
                     }
                 }
@@ -246,7 +249,7 @@ namespace CustomerLib.Data.Repositories
                     "WHERE " +
                     "[dbo].[Addresses].[CustomerID] = @customerId " +
                     "ORDER BY " +
-                    "[dbo].[Addresses].[CustomerID]", 
+                    "[dbo].[Addresses].[AddressID]", 
                     connection);
 
                 var addressCustomerIDParam = new SqlParameter("@customerID", System.Data.SqlDbType.Int)
@@ -263,13 +266,15 @@ namespace CustomerLib.Data.Repositories
                     {
                         readedAddresses.Add(new Address()
                         {
+                            CustomerID = Convert.ToInt32(reader["CustomerID"]),
+                            AddressID = Convert.ToInt32(reader["AddressID"]),
                             Line1 = reader["Line1"]?.ToString(),
                             Line2 = reader["Line2"]?.ToString(),
                             AddressType = (Address.EAddressType)(reader["AddressType"].ToString() == "Shipping" ? 0 : 1),
                             City = reader["City"]?.ToString(),
                             PostalCode = reader["PostalCode"]?.ToString(),
                             State = reader["State"]?.ToString(),
-                            Country = reader["Country"]?.ToString(),
+                            Country = reader["Country"]?.ToString()
                         });
                     }
                 }

@@ -14,13 +14,16 @@ namespace CustomerLib
             
             ConsoleWrapper.Write("Name: ");     customer.FirstName = ConsoleWrapper.ReadLine();
             ConsoleWrapper.Write("Surname: ");  customer.LastName = ConsoleWrapper.ReadLine();
-            ConsoleWrapper.Write("Phone: ");    customer.Phone = ConsoleWrapper.ReadLine();
+            ConsoleWrapper.Write("Phone: ");    customer.PhoneNumber = ConsoleWrapper.ReadLine();
             ConsoleWrapper.Write("Email: ");    customer.Email = ConsoleWrapper.ReadLine();
             ConsoleWrapper.Write("TPA: ");   customer.TotalPurchasesAmount = Convert.ToDecimal(ConsoleWrapper.ReadLine());
 
             do {
                 ConsoleWrapper.Write("Enter at least one note about customer: \n");
-                customer.Notes.Add(ConsoleWrapper.ReadLine());
+                customer.Notes.Add(new Note
+                {
+                    Line = ConsoleWrapper.ReadLine()
+                });
                 ConsoleWrapper.Write("Do you want to add another one? (Y/n) \n");
                 
             } while (ConsoleWrapper.ReadLine() == "Y");

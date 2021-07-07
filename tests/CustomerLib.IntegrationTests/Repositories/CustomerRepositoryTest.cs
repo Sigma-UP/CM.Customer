@@ -1,5 +1,8 @@
 ﻿using CustomerLib.Data.Repositories;
 using Xunit;
+
+using CustomerLib.IntegrationTests.Fixtures;
+
 namespace CustomerLib.IntegrationTests.Repositories
 {
     public class CustomerRepositoryTest

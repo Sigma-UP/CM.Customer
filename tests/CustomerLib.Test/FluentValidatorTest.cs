@@ -13,6 +13,8 @@ namespace CustomerLib.Test
         {
             Address address1 = new Address()
             {
+                CustomerID = 1,
+                AddressID = 1,
                 Line1 = "Spec Line",
                 AddressType = (Address.EAddressType)1,
                 City = "Kirkland",
@@ -22,6 +24,8 @@ namespace CustomerLib.Test
             };
             Address address2 = new Address()
             {
+                CustomerID = 1,
+                AddressID = 2,
                 Line1 = "Spec Line v2",
                 AddressType = 0,
                 City = "Kirkland Vein",
@@ -32,11 +36,18 @@ namespace CustomerLib.Test
 
             Customer customer = new Customer()
             {
+                CustomerID = 1,
                 FirstName = "Vlad",
                 LastName = "Gray",
                 Addresses = new List<Address>() { address1, address2 },
-                Notes = new List<string>() { new string('a', 20) },
-                Phone = "+343434",
+                Notes = new List<Note>() { 
+                    new Note{
+                        CustomerID = 1,
+                        NoteID = 1,
+                        Line = "CustomerLine" 
+                    }
+                },
+                PhoneNumber = "+343434",
                 Email = "rpvv@ankocorp.com",
                 TotalPurchasesAmount = 0.456m
             };
@@ -52,11 +63,18 @@ namespace CustomerLib.Test
         {
             Customer customer = new Customer()
             {
+                CustomerID = 1,
                 FirstName = "Vlad",
                 LastName = "Gray",
                 Addresses = new List<Address>(),
-                Notes = new List<string>() { new string('a', 20) },
-                Phone = "+343434",
+                Notes = new List<Note>() { 
+                    new Note{
+                        CustomerID = 1,
+                        NoteID = 1,
+                        Line = "Customer Note"    
+                        }
+                },
+                PhoneNumber = "+343434",
                 Email = "rpvv@ankocorp.com",
                 TotalPurchasesAmount = 0.456m
             };
