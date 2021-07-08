@@ -51,7 +51,7 @@ namespace CustomerLib.IntegrationTests.Fixtures
             AddressID = 1,
             Line1 = "CustomerLine1",
             Line2 = "CustomerLine2",
-            AddressType = Address.EAddressType.Shipping,
+            AddressType = "Shipping",
             City = "Denver",
             PostalCode = "121212",
             State = "State",

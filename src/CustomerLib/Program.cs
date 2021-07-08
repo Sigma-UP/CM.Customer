@@ -34,7 +34,7 @@ namespace CustomerLib
                 Address address = new Address();
                 ConsoleWrapper.Write("Line1: ");             address.Line1 = ConsoleWrapper.ReadLine();
                 ConsoleWrapper.Write("Billing or Shipping? (0/1)"); 
-                address.AddressType = (Address.EAddressType)Convert.ToInt32(ConsoleWrapper.ReadLine());
+                address.AddressType = ConsoleWrapper.ReadLine();
                 ConsoleWrapper.Write("City: ");              address.City = ConsoleWrapper.ReadLine();
                 ConsoleWrapper.Write("Postal Code: ");       address.PostalCode = ConsoleWrapper.ReadLine();
                 ConsoleWrapper.Write("State: ");             address.State = ConsoleWrapper.ReadLine();

@@ -32,30 +32,15 @@ namespace CustomerLib.Test.Entities
 
         }
         [Fact]
-        public void AddressTypeShouldSave0Or1()
+        public void AddressTypeShouldSaveCorrectString()
         {
-            Assert.Equal(0, (int)_address.AddressType);
+            Assert.Null(_address.AddressType);
 
-            Assert.Equal(Address.EAddressType.Shipping, _address.AddressType);
+            _address.AddressType = "Aero";
+            Assert.Equal("Billing", _address.AddressType);
 
-            _address.AddressType = (Address.EAddressType)1;
-            Assert.Equal(Address.EAddressType.Biling, _address.AddressType);
-
-            _address.AddressType = (Address.EAddressType)3;
-            Assert.Equal(Address.EAddressType.Shipping, _address.AddressType);
-
-            _address.AddressType = (Address.EAddressType)2;
-            Assert.Equal(Address.EAddressType.Shipping, _address.AddressType);
-        }
-        [Fact]
-        public void GetAddressTypeAsStringShouldReturnStringShipping()
-        {
-            Assert.Equal(0, (int)_address.AddressType);
-
-            Assert.Equal("Shipping", _address.GetAddressTypeAsString());
-
-            _address.AddressType = (Address.EAddressType)1;
-            Assert.Equal("Billing", _address.GetAddressTypeAsString());
+            _address.AddressType = "Shipping";
+            Assert.Equal("Shipping", _address.AddressType);
         }
         [Fact]
         public void CityShouldSaveNullOrCorrectString()
@@ -167,14 +152,14 @@ namespace CustomerLib.Test.Entities
         {
             Address a = new Address(){
                 Line1 = "LINE1", 
-                AddressType = Address.EAddressType.Biling,
+                AddressType = "Billing",
                 City = "CITY",
                 PostalCode = "212121",
                 State = "STATE",
                 Country = "Canada" 
             };
             Assert.Equal("LINE1", a.Line1);
-            Assert.Equal(Address.EAddressType.Biling, a.AddressType);
+            Assert.Equal("Billing", a.AddressType);
             Assert.Equal("CITY", a.City);
             Assert.Equal("212121", a.PostalCode);
             Assert.Equal("STATE", a.State);

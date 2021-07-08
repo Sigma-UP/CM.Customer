@@ -143,7 +143,7 @@ namespace CustomerLib.Test.Entities
             Address address = new Address
             {
                 Line1 = "B.Herrington str.",
-                AddressType = Address.EAddressType.Biling,
+                AddressType = "Biling",
                 City = "Zhma",
                 PostalCode = "121782",
                 State = "Juna",

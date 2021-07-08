@@ -39,7 +39,7 @@ namespace CustomerLib.Data.Repositories
 
                 var addressAddressTypeParam = new SqlParameter("@AddressType", System.Data.SqlDbType.VarChar, 10)
                 {
-                    Value = address.AddressType == 0 ? "Shipping" : "Billing" 
+                    Value = address.AddressType 
                 };
 
                 var addressCityParam = new SqlParameter("@City", System.Data.SqlDbType.VarChar, 50)
@@ -118,7 +118,7 @@ namespace CustomerLib.Data.Repositories
                 var addressAddressTypeParam = new SqlParameter("@AddressType", System.Data.SqlDbType.VarChar, 10)
                 {
                     //Value = address.GetAddressTypeAsString()
-                    Value = address.AddressType == 0 ? "Shipping" : "Billing"
+                    Value = address.AddressType
                 };
 
                 var addressCityParam = new SqlParameter("@City", System.Data.SqlDbType.VarChar, 50)
@@ -222,7 +222,7 @@ namespace CustomerLib.Data.Repositories
                             AddressID = Convert.ToInt32(reader["AddressID"]),
                             Line1 = reader["Line1"]?.ToString(),
                             Line2 = reader["Line2"]?.ToString(),
-                            AddressType = (Address.EAddressType)(reader["AddressType"].ToString() == "Shipping" ? 0 : 1),
+                            AddressType = reader["AddressType"].ToString(),
                             City = reader["City"]?.ToString(),
                             PostalCode = reader["PostalCode"]?.ToString(),
                             State = reader["State"]?.ToString(),
@@ -270,7 +270,7 @@ namespace CustomerLib.Data.Repositories
                             AddressID = Convert.ToInt32(reader["AddressID"]),
                             Line1 = reader["Line1"]?.ToString(),
                             Line2 = reader["Line2"]?.ToString(),
-                            AddressType = (Address.EAddressType)(reader["AddressType"].ToString() == "Shipping" ? 0 : 1),
+                            AddressType = reader["AddressType"].ToString(),
                             City = reader["City"]?.ToString(),
                             PostalCode = reader["PostalCode"]?.ToString(),
                             State = reader["State"]?.ToString(),

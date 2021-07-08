@@ -57,7 +57,7 @@ namespace CustomerLib.IntegrationTests.Repositories
                 AddressID = 1,
                 Line1 = "Updated L1",
                 Line2 = "Updated L2",
-                AddressType = Address.EAddressType.Biling,
+                AddressType = "Biling",
                 City = "UPD",
                 State = "Ilinois",
                 PostalCode = "122332",
@@ -100,7 +100,7 @@ namespace CustomerLib.IntegrationTests.Repositories
                 State = "Ilinois",
                 PostalCode = "123212",
                 Country = "United States",
-                AddressType = Address.EAddressType.Biling
+                AddressType = "Billing"
             };
             addressRepository.Create(manualCreatedAddress);
 

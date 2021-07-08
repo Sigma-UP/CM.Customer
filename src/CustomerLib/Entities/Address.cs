@@ -14,7 +14,7 @@ namespace CustomerLib.Entities
 		private int _customerID;
 		private string _line1;
 		private string _line2;
-		private EAddressType _addressType;
+		private string _addressType;
 		private string _city;
 		private string _postalCode;
 		private string _state;
@@ -54,23 +54,15 @@ namespace CustomerLib.Entities
 					_line2 = null;
 			}
 		}
-		public EAddressType AddressType
+		public string AddressType
 		{
 			get => _addressType;
 			set
 			{
-				switch ((int)value)
-				{
-					case 0:
-						_addressType = EAddressType.Shipping;
-						break;
-					case 1:
-						_addressType = EAddressType.Biling;
-						break;
-					default:
-						AddressType = EAddressType.Shipping;
-						break;
-				}
+				if (value == "Billing" || value == "Shipping")
+					_addressType = value;
+				else
+					_addressType = "Billing";
 			}
 		}
 		public string City 
@@ -119,9 +111,6 @@ namespace CustomerLib.Entities
 			}
 		}
         #endregion
-
-        public string GetAddressTypeAsString() =>
-			AddressType == 0 ? "Shipping" : "Billing";
 		public enum EAddressType
 		{
 			Shipping,
