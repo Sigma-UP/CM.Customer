@@ -78,11 +78,11 @@ namespace CustomerLib.Test
                 Email = "rpvv@ankocorp.com",
                 TotalPurchasesAmount = 0.456m
             };
-
+        
             CustomerValidator validator = new CustomerValidator();
-
-            var result = validator.TestValidate(customer);
-            result.ShouldHaveValidationErrorFor(customer => customer.Addresses).WithErrorCode("PredicateValidator");
+        
+            TestValidationResult<Customer> result = validator.TestValidate(customer);
+            result.ShouldHaveValidationErrorFor(c => c.Addresses);
         }
     }
 }
